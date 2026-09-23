@@ -8,11 +8,13 @@ as the [6061 Slide Lever](https://www.6061.com/slidelever.htm).
 > **Status: design rev 4, not yet prototyped. All board parts are in stock at Mouser (see section 7).** The socket voltages on the machine have **not been
 > measured** yet. See [Open items](#open-items--before-first-use).
 
+![3D render of the board](docs/render.png)
+
 ![Side view](docs/mechanism.svg)
 
-| Schematic | PCB (top) | 3D (approximate models) |
+| Schematic | PCB (top) | 3D top view |
 |---|---|---|
-| ![schematic](docs/schematic.png) | ![pcb](docs/pcb_layout.png) | ![3d](docs/pcb_3d.png) |
+| ![schematic](docs/schematic.png) | ![pcb](docs/pcb_layout.png) | ![3d top](docs/render_top.png) |
 
 ---
 
@@ -62,7 +64,7 @@ trigger pull-up (across 1–2). Machines of this type typically put 5–15 V the
 | Rev 1: finger lever (bell-crank) driving a slide pot | **Rejected on size.** A 35° swing needs a 25 mm drive arm to move the slider 15 mm, which put the lever top about 50 mm above the PCB. The board was 22.5 mm wide. |
 | Rev 2: thumb slider + C&K PVA1 EE H4 latching button | **Rejected on height.** The PVA1 is 15 mm tall above the PCB, which set a 2 mm lid and a total height of about 20 mm. The target is under 15 mm. |
 | Rev 3: index-finger bar + 15 mm PTA1543 | **Replaced on sourcing.** No 50 kΩ PTA1543 variant is stocked at Mouser (or LCSC). |
-| **Rev 4: index-finger bar on the lug of a 20 mm PTA2043, pressing an E-Switch TL2230 latching button (chosen)** | Passive. One bar for both current and arc on/off. **≈14.7 mm** maximum height (bar top), 60.5 × 19 × 1.0 mm board. Every part in stock at Mouser. |
+| **Rev 4: index-finger bar on the lug of a 20 mm PTA2043, pressing an E-Switch TL2230 latching button (chosen)** | Passive. One bar for both current and arc on/off. **≈14.7 mm** maximum height (bar top), 60.1 × 17.4 × 1.0 mm board. Every part in stock at Mouser. |
 
 **How it's used:**
 
@@ -84,7 +86,7 @@ deliberate press. The same footprint takes the momentary `TL2230OAF140` (hold to
 |---|---|---|
 | RV1 | **Bourns PTA2043-2015CPB503**: 20 mm travel, 50 kΩ linear, single gang, PC pins, **no centre detent**, 15 mm **metal (CP) lever** | The 15 mm PTA1543 we wanted isn't stocked at Mouser; this one is (≈ 900 pcs). Same series, pinout and ratings, with a 35 mm body (+5 mm board length). 20 mm travel ≈ 10 A/mm on a 200 A machine, which is finer control than 15 mm. **No detent:** the second digit `0` in `-2015…` (a `2` there means a centre detent). The metal **lever lug is cut down** to ≈ 13 mm above the PCB bottom and drilled for the finger-bar hinge pin (A); metal drills more cleanly than the insulated lever. |
 | SW1 | **E-Switch TL2230EEF140**: DPDT, latching (EE), 140 gf, 7 × 7 mm, THT | The lowest latching switch with a proper datasheet that I found. Plunger top 12.5 mm above the PCB (11.5 mm latched). 1.0 mm to latch, 1.8 mm full travel. The datasheet shows the pinout and contact states explicitly. |
-| J1 | Solder pads with strain-relief holes (`SolderWire-0.15sqmm_1x05_P4mm…_Relief`) | No connector to shake loose on a torch. The wire passes up through a 2 mm hole before reaching its pad, so it's held in place. |
+| J1 | Solder pads with strain-relief holes, **3.6 mm pitch** (`tigsich:SolderWire-0.15sqmm_1x05_P3.6mm…_Relief`, a copy of KiCad's 4 mm version) | No connector to shake loose on a torch. The wire passes up through a 2 mm hole before reaching its pad, so it's held in place. |
 | Cable | 5 × 0.14 mm² flexible (insulation OD ≤ 1.5 mm), ~4 m, GX20-7 female plug | Same length as the original pedal (4.3 m). |
 
 **Switches I compared** (button heights above the PCB bottom, for a 1.6 mm PCB; subtract 0.6 mm for the 1.0 mm board):
@@ -149,12 +151,12 @@ All heights are measured from the PCB bottom, using nominal datasheet values, wi
 
 **Other housing notes:**
 
-- **Bar overhang:** the bar is 38 mm from A to its front end, so it reaches ≈ 60.5 mm (MIN) to ≈ 80.5 mm (MAX) from the
+- **Bar overhang:** the bar is 38 mm from A to its front end, so it reaches ≈ 60.8 mm (MIN) to ≈ 80.8 mm (MAX) from the
   rear edge. At MAX it sticks out ≈ 18 mm past the housing front, toward the torch head.
 - **Lid slot:** the slot for the pot lug is 20 mm of travel plus the lug width (check on the part, ≈ 5 mm), so about 25 mm long. The clevis
   ears and the bar cover it at every position; a thin skirt on the ears keeps dust out of the pot.
 - **Lid fixing:** the lid screws into the pot's two **M2 threaded holes** (on top of the pot frame, 31 mm apart on the PTA2043).
-  This clamps lid, pot and PCB into one stack. The PCB has **no mounting holes**, because there's no room at 19 mm wide.
+  This clamps lid, pot and PCB into one stack. The PCB has **no mounting holes**, because there's no room at 17.4 mm wide.
   The PCB rests in grooves or on ribs in the housing floor, which also carry the press force.
 - **Mounting on the torch:** two strap or zip-tie slots in the housing floor. The cable exits at the rear, alongside the torch hose.
 
@@ -162,15 +164,16 @@ All heights are measured from the PCB bottom, using nominal datasheet values, wi
 
 ## 5. PCB
 
-- **Board:** **60.5 × 19 mm**, 2 layers, **1.0 mm** (chosen to keep the finger bar under 15 mm), rounded corners (R2), 0.4 mm tracks (signal-level currents).
+- **Board:** **60.1 × 17.4 mm**, 2 layers, **1.0 mm** (chosen to keep the finger bar under 15 mm), rounded corners (R2), 0.4 mm tracks (signal-level currents).
   All copper is on the top layer, with no vias. There is no ground plane: the circuit has no ground.
-- **Width:** the 19 mm is set by the 5-pad cable column (16 mm of pads at 4 mm pitch, plus pad size and edge clearance).
-  The pot is only 11 mm wide including its tabs, and the switch 7 mm. A 3.7 mm pitch pad set would bring the board to
-  about 18 mm, but only with cable insulation of 1 mm OD or less.
+- **Width:** the 17.4 mm is set by the 5-pad cable column: 14.4 mm of pads at **3.6 mm pitch**, plus the 1.7 mm pad size
+  and 0.65 mm edge clearance. The 2.0 mm strain-relief holes still take wires with insulation up to 1.5 mm OD, leaving
+  1.6 mm of board between neighbouring holes. The pot is 11 mm wide including its tabs, and the switch 7 mm. The two track
+  lanes under the pot sit between the pot's mounting tabs and the board edge, with ≥ 0.45 mm clearance.
 - **Layout, rear to front (cable → torch head):**
   1. **Cable pads (J1):** at the rear edge.
   2. **Slide pot (RV1):** its slider runs along the board centreline.
-  3. **Latching button (SW1):** centred, 1.5 mm in front of the pot body.
+  3. **Latching button (SW1):** centred, 0.85 mm in front of the pot body.
 - **Routing:** the pot and switch connections that pass alongside the pot run in lanes above and below the pot body.
 - **Pot direction:** RV1 pin 1 (the rear end) connects to plug pin 3, so the **rear slider position = wiper next to
   plug pin 3**, i.e. P3–P4 ≈ 0.5 kΩ. If the machine gives *maximum* current at the rear, swap the wires on plug pins 3 and 5.
@@ -218,11 +221,11 @@ All heights are measured from the PCB bottom, using nominal datasheet values, wi
 | Path | Content |
 |---|---|
 | `tigsich.kicad_pro/.kicad_sch/.kicad_pcb` | KiCad project |
-| `tigsich.pretty/` | Project footprints: TL2230, corrected PTA2043 (E = 33.5 mm) |
+| `tigsich.pretty/` | Project footprints: TL2230, corrected PTA2043 (E = 33.5 mm), 3.6 mm pitch cable pads |
 | `tigsich.3dshapes/` | Vendor STEP models: TL2230 (E-Switch), PTA2043 DP-lever variant (Bourns) |
 | `docs/mechanism.svg` | Scaled side view: finger bar, hinge, switch, heights |
 | `docs/schematic.pdf` / `.png` | Schematic exports |
-| `docs/pcb_layout.png`, `docs/pcb_3d.png` | Board renders |
+| `docs/render.png`, `docs/render_top.png`, `docs/pcb_layout.png` | 3D renders (KiCad, vendor STEP models) and copper/silk plot |
 | `configuration.jpeg` | 7-pin plug pinout reference |
 
 ---
@@ -246,7 +249,7 @@ so there's no customs agent. Add other stock parts to reach the threshold.
 |---|---|
 | Cable 5 × 0.14 mm², ~4.3 m | LAPP UNITRONIC LiYY 5x0.14 (LAPP 0028205) at TME, or any flexible 5-core; shielded LiYCY 5x0.14 (0034305) if HF-start noise appears |
 | GX20 7-pin female cable plug | Generic "aviation" connector (local shop, Amazon.de/eBay), or reuse the FT-47K-CL8 pedal's plug; bridge pins 6-7 inside |
-| PCB 60.5 × 19 × 1.0 mm, 2 layers | Any EU/CN PCB fab (thickness 1.0 mm must be specified) |
+| PCB 60.1 × 17.4 × 1.0 mm, 2 layers | Any EU/CN PCB fab (thickness 1.0 mm must be specified) |
 | Hinge pin Ø 1 mm, M2 screws ×2 (lid → pot), finger bar 1.2 mm | Hardware store / printed or machined parts |
 
 ---
