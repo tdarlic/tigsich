@@ -23,4 +23,9 @@
 	(pad "5" thru_hole circle (at 0 2.5) (size 1.4 1.4) (drill 0.8) (layers "*.Cu" "*.Mask") (uuid "d2009df7-56b4-4aa0-acf3-7625bdd8ab08"))
 	(pad "6" thru_hole circle (at 2 2.5) (size 1.4 1.4) (drill 0.8) (layers "*.Cu" "*.Mask") (uuid "84f36cec-2383-40c4-b30e-7d7dd1f247d7"))
 	(embedded_fonts no)
+	(model "${KIPRJMOD}/tigsich.3dshapes/TL2230xxFxxx.stp"
+		(offset (xyz 0 0 0.75))
+		(scale (xyz 1 1 1))
+		(rotate (xyz 0 0 90))
+	)
 )

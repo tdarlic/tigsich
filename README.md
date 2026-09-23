@@ -187,9 +187,13 @@ All heights are measured from the PCB bottom, using nominal datasheet values, wi
 - **TL2230 footprint:** it's custom (`tigsich.pretty/SW_E-Switch_TL2230`), because KiCad's library doesn't have one.
   It was made from the datasheet PCB layout (component side): 2 rows of 3 × Ø0.8 mm holes, 2 mm pitch, rows 5 mm apart,
   pin 1 square. The pad numbers match the `Switch:SW_Push_DPDT` symbol: B = common 2/5, A = rest 1/4, C = pushed 3/6.
-- **3D models:** `tigsich.3dshapes/*.wrl` are **rough block models** for fit checks only. KiCad has no PTA2043 or
-  TL2230 model, and the pot model shows the lever at full length (not cut). E-Switch offers a STEP file for the TL2230;
-  download the vendor STEP files before designing the housing.
+- **3D models:**
+  - **SW1** uses E-Switch's own STEP model (`tigsich.3dshapes/TL2230xxFxxx.stp`, inch units). It is set in the footprint
+    with a 90° rotation (the vendor model has its pin rows along Y) and a +0.75 mm Z offset (model origin is 0.75 mm above
+    the seating plane). With these, the pins sit centred in the pads and the plunger top is 12.5 mm above the PCB, as in
+    the datasheet.
+  - **RV1** is still a rough block model (`PTA2043_approx.wrl`), shown with the lever at full length (not cut). Download
+    Bourns' STEP before designing the housing.
 
 **Verification:**
 
@@ -205,7 +209,7 @@ All heights are measured from the PCB bottom, using nominal datasheet values, wi
 |---|---|
 | `tigsich.kicad_pro/.kicad_sch/.kicad_pcb` | KiCad project |
 | `tigsich.pretty/` | Project footprint library (TL2230) |
-| `tigsich.3dshapes/` | Approximate 3D models |
+| `tigsich.3dshapes/` | 3D models: TL2230 vendor STEP, approximate PTA2043 block |
 | `docs/mechanism.svg` | Scaled side view: finger bar, hinge, switch, heights |
 | `docs/schematic.pdf` / `.png` | Schematic exports |
 | `docs/pcb_layout.png`, `docs/pcb_3d.png` | Board renders |
