@@ -4,7 +4,7 @@ A passive, torch-mounted current control that replaces the IPOTools **FT-47K-CL8
 A **thumb slider** sets the welding current and stays where you leave it. A **push-on / push-off button** starts and
 stops the arc. The concept is the same as the [6061 Slide Lever](https://www.6061.com/slidelever.htm).
 
-> **Status: design rev 2, not yet prototyped.** The socket voltages on the machine have **not been
+> **Status: design rev 3, not yet prototyped.** The socket voltages on the machine have **not been
 > measured** yet. See [Open items](#open-items--before-first-use).
 
 ![Side view](docs/mechanism.svg)
@@ -37,6 +37,8 @@ The machine has a GX20 7-pin remote socket. The pinout is the same one used by A
   specifies "500 Ω or 1 % max", which is exactly what the pedal shows.
 - **Pins 6–7 are bridged inside the GX20 plug, not on the PCB.** This keeps the cable at 5 cores (thinner and more
   flexible on a torch).
+- **The switch itself must latch.** IPOTools states the remote works **only in 2T mode**, so the machine's 4T
+  latch can't be used with a momentary button.
 
 ### Supply voltage (assumed, not measured)
 
@@ -47,7 +49,7 @@ trigger pull-up (across 1–2). Machines of this type typically put 5–15 V the
 | Part | Rating | Margin at 12 V |
 |---|---|---|
 | PTA1543 (15 mm, linear) | 100 V DC, 0.05 W | 12 V across 50 kΩ = 2.9 mW |
-| PVA1 | 50 V DC, 100 mA, 3 W, sealed contacts for low-signal use | fine for a signal-level input |
+| TL2230 | 30 V DC, 100 mA | fine for a signal-level input |
 
 ---
 
@@ -56,20 +58,19 @@ trigger pull-up (across 1–2). Machines of this type typically put 5–15 V the
 | Option | Outcome |
 |---|---|
 | Hall sensor + MCU + digital pot | **Rejected.** Needs power, and the plug has no supply pin. It would have to steal current from a 47 kΩ pot reference (≈0.2 mA) or use a battery. It also needs a high-voltage digital pot plus HF-start hardening. |
-| Finger lever (bell-crank) driving a slide pot, trigger from lever travel (rev 1) | **Rejected on size.** A 35° lever swing needs a 25 mm drive arm to move the slider 15 mm, which put the pivot 41 mm above the PCB and the lever top about 50 mm up. The board was also 22.5 mm wide. |
-| **Thumb slider + separate latching button (rev 2, chosen)** | Passive, no linkage, about 20 mm tall, 19 mm wide. The pot is still electrically identical to the pedal. |
+| Rev 1: finger lever (bell-crank) driving a slide pot | **Rejected on size.** A 35° swing needs a 25 mm drive arm to move the slider 15 mm, which put the lever top about 50 mm above the PCB. The board was 22.5 mm wide. |
+| Rev 2: thumb slider + C&K PVA1 EE H4 latching button | **Rejected on height.** The PVA1 is 15 mm tall above the PCB, which set a 2 mm lid and a total height of about 20 mm. The target is under 15 mm. |
+| **Rev 3: thumb slider + E-Switch TL2230 latching button (chosen)** | Passive, no linkage. **14.1 mm** maximum height (button, unlatched), 55.5 × 19 mm board. |
 
 **How it's used:**
 
 1. **Set the current:** slide the knob. Rear = minimum, front = maximum. It stays where you leave it, because the pot's
    own 30–250 gf friction holds it.
-2. **Start the arc:** press the button once. It latches and closes pins 1–2.
+2. **Start the arc:** press the button once. It latches (the plunger stays 1 mm lower) and closes pins 1–2.
 3. **Stop the arc:** press it again.
 
-The machine stays in **2T mode**, as it would with the pedal.
-This is how the 6061 Slide Lever works. The trade-off is that nothing stops the arc if you drop the torch: that
-takes a deliberate press. A momentary button (hold to weld) would fit the same footprint (`PVA1 OA H4`) if that
-behaviour is preferred.
+The machine stays in **2T mode**. The trade-off is that nothing stops the arc if you drop the torch: that takes a
+deliberate press. The same footprint takes the momentary `TL2230OAF140` (hold to weld) if that's preferred.
 
 ---
 
@@ -77,23 +78,29 @@ behaviour is preferred.
 
 | Ref | Part | Why |
 |---|---|---|
-| RV1 | **Bourns PTA1543-2015CIB503**: 15 mm travel, 50 kΩ linear, single gang, PC pins, **no centre detent**, 15 mm insulated (CI) lever | Short slider (30 mm body), so the unit stays short. 15 mm travel ≈ 13 A/mm on a 200 A machine, which was the user's choice over 20 or 30 mm. **Not** `-2215…`: that code has a *centre detent*. The 15 mm lever (not 10 mm) is needed so the lever reaches through the lid (see heights). |
-| SW1 | **C&K PVA1 EE H4 1.2N V2**: DPST, push-push (latching), 15 mm total height, sealed/dust-proof contacts | The contacts are sealed and dust-proof, which matters near grinding and welding dust. It's rated for low-signal loads and 100,000 operations, has a short 1.5 mm latching stroke and 1.2 N force, and is in stock (DigiKey/Mouser). It has a standard KiCad footprint. H4 (15 mm) is the lowest PVA1 height. |
+| RV1 | **Bourns PTA1543-2015CIB503**: 15 mm travel, 50 kΩ linear, single gang, PC pins, **no centre detent**, 15 mm insulated (CI) lever | Short slider (30 mm body), so the unit stays short. 15 mm travel ≈ 13 A/mm on a 200 A machine (the user's choice). **Not** `-2215…`: that code has a *centre detent*. The **lever lug is cut down** to ≈ 12.5 mm above the PCB bottom, just enough to reach through the lid into the knob. |
+| SW1 | **E-Switch TL2230EEF140**: DPDT, latching (EE), 140 gf, 7 × 7 mm, THT | The lowest latching switch with a proper datasheet that I found. Plunger top 12.5 mm above the PCB (11.5 mm latched). 1.0 mm to latch, 1.8 mm full travel. The datasheet shows the pinout and contact states explicitly. |
 | J1 | Solder pads with strain-relief holes (`SolderWire-0.15sqmm_1x05_P4mm…_Relief`) | No connector to shake loose on a torch. The wire passes up through a 2 mm hole before reaching its pad, so it's held in place. |
 | Cable | 5 × 0.14 mm² flexible (insulation OD ≤ 1.5 mm), ~4 m, GX20-7 female plug | Same length as the original pedal (4.3 m). |
 
-**Both switch poles are wired in parallel, in a fail-safe way.** The PVA datasheet doesn't label which PVA1 pins
-form each pole. By analogy with the PVA2 drawing, the poles are pads 1–2 and 3–4. The board ties
-**pads 1+3 → TRIG_COM** and **pads 2+4 → TRIG_NO**:
+**Switches I compared** (all heights above the PCB bottom):
 
-- **If the guess is right** (1–2 / 3–4), or the poles are diagonal (1–4 / 2–3), both poles end up in parallel. That gives
-  redundant contacts for a low-level signal.
-- **If the poles are really 1–3 / 2–4**, each pole just joins COM to COM and NO to NO, so the switch **never closes**.
-  It can never be stuck *on*. Check with a meter before first use.
+| Switch | Size (mm) | Button top: unlatched / latched | Verdict |
+|---|---|---|---|
+| C&K PVA1 EE H4 | 9.8 × 9.2 | 16.6 / 15.1 | Too tall (rev 2) |
+| **E-Switch TL2230EEF140** | **7 × 7** | **14.1 / 13.1** | **Chosen** |
+| Alps SPEF110100 | 12.2 wide, 9 deep | ≈ 14.6 unlatched | Wider, only 14.5 V DC rated |
+| Generic 5.8 mm "self-lock" switches | 5.8 × 5.8 | similar | No trustworthy datasheet |
 
-**Pot life:** the PTA is rated at **15,000 slide cycles**. With a set-and-leave slider (rather than a pedal that moves
-on every weld) that goes much further than in rev 1. A conductive-plastic slide pot of the same footprint is the
-upgrade path.
+**Switch wiring:** both poles are in parallel. The TL2230 datasheet shows **rest = 1–2 and 4–5 closed**, and
+**pushed / latched = 2–3 and 5–6 closed**. So **2 + 5 → TRIG_COM** and **3 + 6 → TRIG_NO**, and the rest contacts 1 and 4
+are left unconnected. The two contacts in parallel give redundancy for a low-level signal.
+
+**Switch life is the weak point.** The TL2230 is rated for **10,000 electrical cycles**, about 5,000 welds (on + off).
+That's fine for hobby use, and it's a cheap THT part that's easy to replace.
+
+**Pot life:** the PTA is rated at **15,000 slide cycles**. With a set-and-leave slider (rather than a pedal that moves on
+every weld) that lasts a long time. A conductive-plastic slide pot of the same footprint is the upgrade path.
 
 **No filtering or ESD parts on the board.** The original pedal is a bare pot and switch, and the machine's input
 circuitry was designed for that. If HF-start interference shows up, the first fix is a shielded cable with the shield
@@ -109,16 +116,20 @@ All heights are measured from the PCB bottom, using nominal datasheet values:
 |---|---|
 | PCB | 1.6 mm |
 | Pot body top | 8.1 mm |
-| PVA1 body top | 12.5 mm |
-| Lid (2 mm), resting just above the PVA1 body | 12.9 → **14.9 mm** |
-| PTA lever top (15 mm lever) | 18.1 mm (3.2 mm through the lid; the knob clamps on here) |
-| PVA1 plunger top | 16.6 mm (plus a printed cap ≈ 18.9 mm) |
-| **Knob top** | **≈ 19.9 mm** |
+| TL2230 body top | 8.6 mm |
+| Lid (1.5 mm), resting just above the switch body | 8.8 → **10.3 mm** |
+| Pot lever lug (cut down) | ≈ 12.5 mm |
+| Slider knob top | **≈ 13.3 mm** |
+| TL2230 plunger top: latched / unlatched | 13.1 / **14.1 mm** (highest point) |
 
-Rev 1 reached about 50 mm, so this is about **30 mm lower**.
+**The height target (< 15 mm) is met** without a separate button cap. Add the housing floor under the PCB
+(≈ 1–1.5 mm) to get the total thickness on the torch.
 
 Housing notes:
 
+- **Button collar:** the 3 × 2.6 mm plunger sticks up through a hole in the lid. A small **raised collar** around it
+  (to ≈ 12 mm) helps a gloved finger find it and prevents accidental presses. A printed cap of up to 0.8 mm can go on
+  the plunger if you want a bigger contact area; keep it under 15 mm.
 - **Lid slot:** the slot for the pot lever is 15 mm of travel plus the 4 mm lever, so about 19.5 × 1.5 mm.
   The **knob has a skirt** wider than the slot, so it covers the slot at every position and keeps dust out of the pot.
 - **Lid fixing:** the lid screws into the pot's two **M2 threaded holes** (on top of the pot frame, 26 mm apart).
@@ -130,15 +141,15 @@ Housing notes:
 
 ## 5. PCB
 
-- **Board:** **58.5 × 19 mm**, 2 layers, 1.6 mm, rounded corners (R2), 0.4 mm tracks (signal-level currents).
+- **Board:** **55.5 × 19 mm**, 2 layers, 1.6 mm, rounded corners (R2), 0.4 mm tracks (signal-level currents).
   All copper is on the top layer, with no vias. There is no ground plane: the circuit has no ground.
 - **Width:** the 19 mm is set by the 5-pad cable column (16 mm of pads at 4 mm pitch, plus pad size and edge clearance).
-  The pot is only 11 mm wide including its tabs. A 3.7 mm pitch pad set would bring the board to about 18 mm, but only
-  with cable insulation of 1 mm OD or less.
+  The pot is only 11 mm wide including its tabs, and the switch 7 mm. A 3.7 mm pitch pad set would bring the board to
+  about 18 mm, but only with cable insulation of 1 mm OD or less.
 - **Layout, rear to front (cable → torch head):**
   1. **Cable pads (J1):** at the rear edge.
   2. **Slide pot (RV1):** its slider runs along the board centreline.
-  3. **Latching button (SW1):** at the front, centred.
+  3. **Latching button (SW1):** centred, 1.5 mm in front of the pot body.
 - **Routing:** the pot and switch connections that pass alongside the pot run in lanes above and below the pot body.
 - **Pot direction:** RV1 pin 1 (the rear end) connects to plug pin 3, so the **rear slider position = wiper next to
   plug pin 3**, i.e. P3–P4 ≈ 0.5 kΩ. If the machine gives *maximum* current at the rear, swap the wires on plug pins 3 and 5.
@@ -152,9 +163,12 @@ Housing notes:
 | 4 | P5 | POT_B | 5 | red |
 | 5 | P2 | TRIG_NO | 2 | white |
 
-- **Footprints:** all come from the standard KiCad library, so the project has no custom footprint library.
+- **TL2230 footprint:** it's custom (`tigsich.pretty/SW_E-Switch_TL2230`), because KiCad's library doesn't have one.
+  It was made from the datasheet PCB layout (component side): 2 rows of 3 × Ø0.8 mm holes, 2 mm pitch, rows 5 mm apart,
+  pin 1 square. The pad numbers match the `Switch:SW_Push_DPDT` symbol: B = common 2/5, A = rest 1/4, C = pushed 3/6.
 - **3D models:** `tigsich.3dshapes/*.wrl` are **rough block models** for fit checks only. KiCad has no PTA1543 or
-  PVA1 model. Download the vendor STEP files before designing the housing.
+  TL2230 model, and the pot model shows the lever at full length (not cut). E-Switch offers a STEP file for the TL2230;
+  download the vendor STEP files before designing the housing.
 
 **Verification:**
 
@@ -169,6 +183,7 @@ Housing notes:
 | Path | Content |
 |---|---|
 | `tigsich.kicad_pro/.kicad_sch/.kicad_pcb` | KiCad project |
+| `tigsich.pretty/` | Project footprint library (TL2230) |
 | `tigsich.3dshapes/` | Approximate 3D models |
 | `docs/mechanism.svg` | Scaled side view with heights |
 | `docs/schematic.pdf` / `.png` | Schematic exports |
@@ -180,13 +195,14 @@ Housing notes:
 ## Open items / before first use
 
 1. **Measure the socket.** With the machine on and the pedal unplugged, measure the DC voltage across 3–5, across 1–2, and from
-   each pin to the case. It must be ≤ 50 V on 1–2 for the PVA1. Don't strike an arc (HF start) while probing.
-2. **Check the switch.** Before soldering, check with a meter that pins 1–2 and 3–4 of the PVA1 close when it's latched.
-   On the finished board, check that P1–P2 is open when the button is released and closed when it's latched.
+   each pin to the case. It must be **≤ 30 V** on 1–2 for the TL2230. Don't strike an arc (HF start) while probing.
+2. **Check the switch.** Before soldering, check with a meter that the TL2230 closes 2–3 (and 5–6) only when latched.
+   On the finished board, check that P1–P2 is open when the button is up and closed when it's latched.
 3. **Check the pot direction:** the rear slider position should give minimum current. Swap plug pins 3/5 if needed.
-4. **Check part dimensions** against real parts: PTA lever height and PVA1 body height set the lid height.
-5. **Design the housing:** lid with slot and M2 screws into the pot, knob with skirt, button cap, PCB grooves,
-   strap slots, cable gland.
+4. **Check part dimensions** against real parts. The PTA lug length after cutting and the TL2230 body height set the
+   lid and knob heights.
+5. **Design the housing:** lid with slot, button hole and collar, M2 screws into the pot, knob with skirt,
+   PCB grooves, strap slots, cable gland.
 6. **Test first on scrap:** check minimum and maximum current, that the latch works with gloves on, and that HF start
    doesn't cause flicker. If it does, use a shielded cable.
 
@@ -195,6 +211,8 @@ Housing notes:
 - [SSC C910-0725 info sheet (same 7-pin pinout)](https://ssccontrols.com/uploads/Product-Information-Sheet-C910-0725-TIG-Foot-Controls.pdf)
 - [IPOTools FT-47K-CL8 foot pedal](https://ipotools.eu/product/tig-foot-pedal/)
 - [Bourns PTA series datasheet](https://www.bourns.com/docs/product-datasheets/pta.pdf)
-- [C&K PVA series datasheet](https://www.mouser.com/datasheet/2/240/pva-3050984.pdf)
-- [PVA1 EE H4 1.2N V2 on DigiKey](https://www.digikey.com/en/products/detail/c-k/PVA1-EE-H4-1-2N-V2/417716)
+- [E-Switch TL2230 datasheet](https://configured-product-images.s3.amazonaws.com/Datasheets/TL2230.pdf)
+- [E-Switch TL2230 product page](https://www.e-switch.com/product-catalog/tl2230-series-subminiature-pushbutton-switch)
+- [C&K PVA series datasheet (rev 2)](https://www.mouser.com/datasheet/2/240/pva-3050984.pdf)
+- [Alps SPEF series (compared)](https://tech.alpsalpine.com/e/products/category/switches/sub/03/series/spef/)
 - [6061 Slide Lever (concept reference)](https://www.6061.com/slidelever.htm)
