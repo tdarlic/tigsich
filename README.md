@@ -1,8 +1,9 @@
-# TIGSICH – thumb-slider remote for IPOTools SuperTIG 200Di
+# TIGSICH – index-finger slide remote for IPOTools SuperTIG 200Di
 
 A passive, torch-mounted current control that replaces the IPOTools **FT-47K-CL8** foot pedal.
-A **thumb slider** sets the welding current and stays where you leave it. A **push-on / push-off button** starts and
-stops the arc. The concept is the same as the [6061 Slide Lever](https://www.6061.com/slidelever.htm).
+A **finger bar** under the index finger does both jobs. **Sliding** it moves a slide pot, which sets the welding current.
+**Pressing** it clicks a push-on / push-off switch underneath, which starts or stops the arc at any current setting. The concept is the same
+as the [6061 Slide Lever](https://www.6061.com/slidelever.htm).
 
 > **Status: design rev 3, not yet prototyped.** The socket voltages on the machine have **not been
 > measured** yet. See [Open items](#open-items--before-first-use).
@@ -60,14 +61,16 @@ trigger pull-up (across 1–2). Machines of this type typically put 5–15 V the
 | Hall sensor + MCU + digital pot | **Rejected.** Needs power, and the plug has no supply pin. It would have to steal current from a 47 kΩ pot reference (≈0.2 mA) or use a battery. It also needs a high-voltage digital pot plus HF-start hardening. |
 | Rev 1: finger lever (bell-crank) driving a slide pot | **Rejected on size.** A 35° swing needs a 25 mm drive arm to move the slider 15 mm, which put the lever top about 50 mm above the PCB. The board was 22.5 mm wide. |
 | Rev 2: thumb slider + C&K PVA1 EE H4 latching button | **Rejected on height.** The PVA1 is 15 mm tall above the PCB, which set a 2 mm lid and a total height of about 20 mm. The target is under 15 mm. |
-| **Rev 3: thumb slider + E-Switch TL2230 latching button (chosen)** | Passive, no linkage. **14.1 mm** maximum height (button, unlatched), 55.5 × 19 mm board. |
+| **Rev 3: index-finger bar on the pot lug, pressing an E-Switch TL2230 latching button (chosen)** | Passive. One bar for both current and arc on/off. **≈14.7 mm** maximum height (bar top), 55.5 × 19 × 1.0 mm board. |
 
 **How it's used:**
 
-1. **Set the current:** slide the knob. Rear = minimum, front = maximum. It stays where you leave it, because the pot's
-   own 30–250 gf friction holds it.
-2. **Start the arc:** press the button once. It latches (the plunger stays 1 mm lower) and closes pins 1–2.
-3. **Stop the arc:** press it again.
+1. **Set the current:** slide the finger bar. Rear = minimum, front = maximum. It stays where you leave it, because the
+   pot's own 30–250 gf friction holds it.
+2. **Start the arc:** press the bar down. The switch underneath clicks and latches (plunger and bar stay 1 mm lower), closing pins 1–2.
+   This works at **any slider position**, because the bar slides *over* the plunger.
+3. **Change current while welding:** slide the bar; the latched switch stays on.
+4. **Stop the arc:** press the bar again.
 
 The machine stays in **2T mode**. The trade-off is that nothing stops the arc if you drop the torch: that takes a
 deliberate press. The same footprint takes the momentary `TL2230OAF140` (hold to weld) if that's preferred.
@@ -78,12 +81,12 @@ deliberate press. The same footprint takes the momentary `TL2230OAF140` (hold to
 
 | Ref | Part | Why |
 |---|---|---|
-| RV1 | **Bourns PTA1543-2015CIB503**: 15 mm travel, 50 kΩ linear, single gang, PC pins, **no centre detent**, 15 mm insulated (CI) lever | Short slider (30 mm body), so the unit stays short. 15 mm travel ≈ 13 A/mm on a 200 A machine (the user's choice). **Not** `-2215…`: that code has a *centre detent*. The **lever lug is cut down** to ≈ 12.5 mm above the PCB bottom, just enough to reach through the lid into the knob. |
+| RV1 | **Bourns PTA1543-2015CIB503**: 15 mm travel, 50 kΩ linear, single gang, PC pins, **no centre detent**, 15 mm insulated (CI) lever | Short slider (30 mm body), so the unit stays short. 15 mm travel ≈ 13 A/mm on a 200 A machine (the user's choice). **Not** `-2215…`: that code has a *centre detent*. The **lever lug is cut down** to ≈ 13 mm above the PCB bottom and drilled for the finger-bar hinge pin (A). |
 | SW1 | **E-Switch TL2230EEF140**: DPDT, latching (EE), 140 gf, 7 × 7 mm, THT | The lowest latching switch with a proper datasheet that I found. Plunger top 12.5 mm above the PCB (11.5 mm latched). 1.0 mm to latch, 1.8 mm full travel. The datasheet shows the pinout and contact states explicitly. |
 | J1 | Solder pads with strain-relief holes (`SolderWire-0.15sqmm_1x05_P4mm…_Relief`) | No connector to shake loose on a torch. The wire passes up through a 2 mm hole before reaching its pad, so it's held in place. |
 | Cable | 5 × 0.14 mm² flexible (insulation OD ≤ 1.5 mm), ~4 m, GX20-7 female plug | Same length as the original pedal (4.3 m). |
 
-**Switches I compared** (all heights above the PCB bottom):
+**Switches I compared** (button heights above the PCB bottom, for a 1.6 mm PCB; subtract 0.6 mm for the 1.0 mm board):
 
 | Switch | Size (mm) | Button top: unlatched / latched | Verdict |
 |---|---|---|---|
@@ -110,38 +113,55 @@ grounded at the machine end.
 
 ## 4. Mechanics and heights (see `docs/mechanism.svg`)
 
-All heights are measured from the PCB bottom, using nominal datasheet values:
+**The finger bar:**
+
+1. **Hinge at A:** its rear end is hinged on the cut pot lug with a pin (Ø ≈ 1 mm) through the lug, held by two
+   clevis ears under the bar. Sliding the bar drags the pot slider.
+2. **Resting on the switch:** its front part rests on the TL2230 plunger. The switch's own spring holds the bar up, so
+   no extra return spring is needed.
+3. **Pressing:** the bar tips about pin A. The distance from A to the switch is 12.5 mm at MAX and 27.5 mm at MIN, so the
+   1.8 mm switch travel is a 3.7–8° tilt. A rigid joint at A won't work; it has to be a hinge (or a printed flexure).
+4. **Finger pad:** at the front end, 36 mm from A, just in front of the switch. Pressing close to the switch keeps the
+   lifting force on the pot lug small. (Pressing far in front of the switch levers the lug *up*.)
+
+**Lid features around the switch:**
+
+- **Square bore:** a close-fitting bore round the plunger (3.0 × 2.0 mm head) takes the **sideways friction** as the bar slides across the
+  plunger top, so the switch stem isn't bent. A smooth bar underside (polished aluminium, or PTFE tape) helps too.
+- **Side rails:** two rails beside the bore keep the bar centred (it can't swing sideways around A).
+  Their tops are the **down-stop** at ≈ 1.7 mm switch travel. That's past the 1.0 mm latch point and short of the 1.8 mm end stop.
+
+All heights are measured from the PCB bottom, using nominal datasheet values, with a **1.0 mm PCB**:
 
 | Item | Height |
 |---|---|
-| PCB | 1.6 mm |
-| Pot body top | 8.1 mm |
-| TL2230 body top | 8.6 mm |
-| Lid (1.5 mm), resting just above the switch body | 8.8 → **10.3 mm** |
-| Pot lever lug (cut down) | ≈ 12.5 mm |
-| Slider knob top | **≈ 13.3 mm** |
-| TL2230 plunger top: latched / unlatched | 13.1 / **14.1 mm** (highest point) |
+| PCB | 1.0 mm |
+| Pot body top | 7.5 mm |
+| TL2230 body top | 8.0 mm |
+| Lid (1.5 mm), resting just above the switch body | 8.2 → **9.7 mm** |
+| Hinge pin A (in the cut lug) | ≈ 12.2 mm |
+| Plunger top = bar underside (unlatched / latched) | 13.5 / 12.5 mm |
+| **Finger bar top** (1.2 mm bar), highest point | **≈ 14.7 mm** (13.7 mm latched) |
 
-**The height target (< 15 mm) is met** without a separate button cap. Add the housing floor under the PCB
-(≈ 1–1.5 mm) to get the total thickness on the torch.
+**The height target (< 15 mm) is met.** A 1.6 mm PCB would add 0.6 mm (≈ 15.3 mm). A 1.5 mm aluminium bar would add another
+0.3 mm. Add the housing floor under the PCB (≈ 1–1.5 mm) to get the total thickness on the torch.
 
-Housing notes:
+**Other housing notes:**
 
-- **Button collar:** the 3 × 2.6 mm plunger sticks up through a hole in the lid. A small **raised collar** around it
-  (to ≈ 12 mm) helps a gloved finger find it and prevents accidental presses. A printed cap of up to 0.8 mm can go on
-  the plunger if you want a bigger contact area; keep it under 15 mm.
-- **Lid slot:** the slot for the pot lever is 15 mm of travel plus the 4 mm lever, so about 19.5 × 1.5 mm.
-  The **knob has a skirt** wider than the slot, so it covers the slot at every position and keeps dust out of the pot.
+- **Bar overhang:** the bar is 36 mm from A to its front end, so it reaches ≈ 59 mm (MIN) to ≈ 74 mm (MAX) from the rear
+  edge. At MAX it sticks out ≈ 18 mm past the housing front, toward the torch head.
+- **Lid slot:** the slot for the pot lug is 15 mm of travel plus the 4 mm lug, so about 19.5 × 1.5 mm. The clevis
+  ears and the bar cover it at every position; a thin skirt on the ears keeps dust out of the pot.
 - **Lid fixing:** the lid screws into the pot's two **M2 threaded holes** (on top of the pot frame, 26 mm apart).
   This clamps lid, pot and PCB into one stack. The PCB has **no mounting holes**, because there's no room at 19 mm wide.
-  The PCB rests in grooves or on ribs in the housing floor, which also carry the button-press force.
+  The PCB rests in grooves or on ribs in the housing floor, which also carry the press force.
 - **Mounting on the torch:** two strap or zip-tie slots in the housing floor. The cable exits at the rear, alongside the torch hose.
 
 ---
 
 ## 5. PCB
 
-- **Board:** **55.5 × 19 mm**, 2 layers, 1.6 mm, rounded corners (R2), 0.4 mm tracks (signal-level currents).
+- **Board:** **55.5 × 19 mm**, 2 layers, **1.0 mm** (chosen to keep the finger bar under 15 mm), rounded corners (R2), 0.4 mm tracks (signal-level currents).
   All copper is on the top layer, with no vias. There is no ground plane: the circuit has no ground.
 - **Width:** the 19 mm is set by the 5-pad cable column (16 mm of pads at 4 mm pitch, plus pad size and edge clearance).
   The pot is only 11 mm wide including its tabs, and the switch 7 mm. A 3.7 mm pitch pad set would bring the board to
@@ -185,7 +205,7 @@ Housing notes:
 | `tigsich.kicad_pro/.kicad_sch/.kicad_pcb` | KiCad project |
 | `tigsich.pretty/` | Project footprint library (TL2230) |
 | `tigsich.3dshapes/` | Approximate 3D models |
-| `docs/mechanism.svg` | Scaled side view with heights |
+| `docs/mechanism.svg` | Scaled side view: finger bar, hinge, switch, heights |
 | `docs/schematic.pdf` / `.png` | Schematic exports |
 | `docs/pcb_layout.png`, `docs/pcb_3d.png` | Board renders |
 | `configuration.jpeg` | 7-pin plug pinout reference |
@@ -199,11 +219,13 @@ Housing notes:
 2. **Check the switch.** Before soldering, check with a meter that the TL2230 closes 2–3 (and 5–6) only when latched.
    On the finished board, check that P1–P2 is open when the button is up and closed when it's latched.
 3. **Check the pot direction:** the rear slider position should give minimum current. Swap plug pins 3/5 if needed.
-4. **Check part dimensions** against real parts. The PTA lug length after cutting and the TL2230 body height set the
-   lid and knob heights.
-5. **Design the housing:** lid with slot, button hole and collar, M2 screws into the pot, knob with skirt,
-   PCB grooves, strap slots, cable gland.
-6. **Test first on scrap:** check minimum and maximum current, that the latch works with gloves on, and that HF start
+4. **Check part dimensions** against real parts. The TL2230 plunger height sets the bar height, and the pot lug is
+   cut and drilled to suit the hinge.
+5. **Design the housing and bar:** lid with lug slot, plunger bore, side rails and down-stop, M2 screws into the pot,
+   finger bar with clevis ears and hinge pin, PCB grooves, strap slots, cable gland.
+6. **Check the latch through the bar:** make sure a press anywhere in the 15 mm travel latches and unlatches the switch
+   reliably, and that sliding while latched doesn't unlatch it.
+7. **Test first on scrap:** check minimum and maximum current, that the latch works with gloves on, and that HF start
    doesn't cause flicker. If it does, use a shielded cable.
 
 ## Sources
