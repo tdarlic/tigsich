@@ -1,14 +1,13 @@
-# TIGSICH – finger remote for IPOTools SuperTIG 200Di
+# TIGSICH – thumb-slider remote for IPOTools SuperTIG 200Di
 
-A passive, torch-mounted finger control that replaces the IPOTools **FT-47K-CL8** foot pedal.
-Squeezing the lever first closes the trigger (arc on), then raises the welding current as the
-lever moves further, the same way the pedal behaves. Releasing it returns the current to minimum and stops the arc.
-The concept is the same as the [6061 Finger Pedal](https://www.6061.com/fingerpedal.htm).
+A passive, torch-mounted current control that replaces the IPOTools **FT-47K-CL8** foot pedal.
+A **thumb slider** sets the welding current and stays where you leave it. A **push-on / push-off button** starts and
+stops the arc. The concept is the same as the [6061 Slide Lever](https://www.6061.com/slidelever.htm).
 
-> **Status: design rev 1, not yet prototyped.** The socket voltages on the machine have **not been
+> **Status: design rev 2, not yet prototyped.** The socket voltages on the machine have **not been
 > measured** yet. See [Open items](#open-items--before-first-use).
 
-![Mechanism side view](docs/mechanism.svg)
+![Side view](docs/mechanism.svg)
 
 | Schematic | PCB (top) | 3D (approximate models) |
 |---|---|---|
@@ -34,11 +33,10 @@ The machine has a GX20 7-pin remote socket. The pinout is the same one used by A
 
 - **Pot value 50 kΩ linear.** The pedal model name (47K) and the measurement (≈50 kΩ end to end) agree.
   The ±20 % pot tolerance doesn't matter, because the machine reads the wiper as a *ratio* of the reference voltage.
-- **The 0.5 kΩ minimum is just the pot's residual resistance.** The PTA datasheet specifies
-  "500 Ω or 1 % max" residual resistance, which is exactly what the pedal shows. So the series trim resistors (R1/R2)
-  I first proposed were **dropped**: they would add nothing.
+- **No series trim resistors.** The pedal's 0.5 kΩ minimum is simply the pot's residual resistance. The PTA datasheet
+  specifies "500 Ω or 1 % max", which is exactly what the pedal shows.
 - **Pins 6–7 are bridged inside the GX20 plug, not on the PCB.** This keeps the cable at 5 cores (thinner and more
-  flexible on a torch), and the remote is still detected even if the board is disconnected from its cable.
+  flexible on a torch).
 
 ### Supply voltage (assumed, not measured)
 
@@ -49,21 +47,29 @@ trigger pull-up (across 1–2). Machines of this type typically put 5–15 V the
 | Part | Rating | Margin at 12 V |
 |---|---|---|
 | PTA1543 (15 mm, linear) | 100 V DC, 0.05 W | 12 V across 50 kΩ = 2.9 mW |
-| D2F-01L3 | 30 V DC, 0.1 A, gold contacts, min. load 1 mA @ 5 V | fine for a signal-level input |
-
-If you measure more than 30 V on pins 1–2, the switch must change (see open items).
+| PVA1 | 50 V DC, 100 mA, 3 W, sealed contacts for low-signal use | fine for a signal-level input |
 
 ---
 
-## 2. Architecture: passive, not Hall + MCU
+## 2. Architecture
 
-Alternatives considered:
-
-| Option | Why not chosen |
+| Option | Outcome |
 |---|---|
-| Hall sensor + MCU + digital pot | Needs power, and the plug has no supply pin. It would have to steal current from a 47 kΩ pot reference (≈0.2 mA available) or use a battery. It also needs a high-voltage digital pot (MCP41HV51 / AD5290) plus HF-start hardening. More parts, more ways to fail. |
-| Rotary pot at the lever pivot | A finger lever swings only about 35°, while a pot needs about 270° for its full range. Only about 12 % of the current range would be reachable without gearing. |
-| **Slide pot + microswitch, driven by a lever (chosen)** | Passive, electrically identical to the original pedal, uses the pot's full range, and every part is cheap and replaceable. |
+| Hall sensor + MCU + digital pot | **Rejected.** Needs power, and the plug has no supply pin. It would have to steal current from a 47 kΩ pot reference (≈0.2 mA) or use a battery. It also needs a high-voltage digital pot plus HF-start hardening. |
+| Finger lever (bell-crank) driving a slide pot, trigger from lever travel (rev 1) | **Rejected on size.** A 35° lever swing needs a 25 mm drive arm to move the slider 15 mm, which put the pivot 41 mm above the PCB and the lever top about 50 mm up. The board was also 22.5 mm wide. |
+| **Thumb slider + separate latching button (rev 2, chosen)** | Passive, no linkage, about 20 mm tall, 19 mm wide. The pot is still electrically identical to the pedal. |
+
+**How it's used:**
+
+1. **Set the current:** slide the knob. Rear = minimum, front = maximum. It stays where you leave it, because the pot's
+   own 30–250 gf friction holds it.
+2. **Start the arc:** press the button once. It latches and closes pins 1–2.
+3. **Stop the arc:** press it again.
+
+The machine stays in **2T mode**, as it would with the pedal.
+This is how the 6061 Slide Lever works. The trade-off is that nothing stops the arc if you drop the torch: that
+takes a deliberate press. A momentary button (hold to weld) would fit the same footprint (`PVA1 OA H4`) if that
+behaviour is preferred.
 
 ---
 
@@ -71,94 +77,84 @@ Alternatives considered:
 
 | Ref | Part | Why |
 |---|---|---|
-| RV1 | **Bourns PTA1543-2015CIB503**: 15 mm travel, 50 kΩ linear (B), single gang, PC pins, **no centre detent**, 15 mm insulated (CI) lever | Short stroke, so the lever can drive the full range. Metal frame with M2 threads on top for fixing to the housing. **Not** `-2215…`: the second `2` in that code means a *centre detent*, which would click halfway through the squeeze. |
-| SW1 | **Omron D2F-01L3**: ultra-subminiature, simulated-roller lever (R1.3), gold contacts (`-01`) | Gold contacts are rated for low-level signal loads. The roller-type lever tolerates a sliding cam better than the plain hinge lever (D2F-01L) I suggested at first. 1,000,000 mechanical operations. Uses **COM + NO**, so a broken switch or linkage fails *open*, i.e. the arc stays off. NC is left unconnected. |
+| RV1 | **Bourns PTA1543-2015CIB503**: 15 mm travel, 50 kΩ linear, single gang, PC pins, **no centre detent**, 15 mm insulated (CI) lever | Short slider (30 mm body), so the unit stays short. 15 mm travel ≈ 13 A/mm on a 200 A machine, which was the user's choice over 20 or 30 mm. **Not** `-2215…`: that code has a *centre detent*. The 15 mm lever (not 10 mm) is needed so the lever reaches through the lid (see heights). |
+| SW1 | **C&K PVA1 EE H4 1.2N V2**: DPST, push-push (latching), 15 mm total height, sealed/dust-proof contacts | The contacts are sealed and dust-proof, which matters near grinding and welding dust. It's rated for low-signal loads and 100,000 operations, has a short 1.5 mm latching stroke and 1.2 N force, and is in stock (DigiKey/Mouser). It has a standard KiCad footprint. H4 (15 mm) is the lowest PVA1 height. |
 | J1 | Solder pads with strain-relief holes (`SolderWire-0.15sqmm_1x05_P4mm…_Relief`) | No connector to shake loose on a torch. The wire passes up through a 2 mm hole before reaching its pad, so it's held in place. |
-| H1, H2 | M2 holes | Fix the front of the board to the housing. The rear is held by the pot's own M2 threads through the housing lid. |
-| Cable | 5 × 0.14–0.25 mm², flexible, ~4 m, GX20-7 female plug | Same length as the original pedal (4.3 m). |
+| Cable | 5 × 0.14 mm² flexible (insulation OD ≤ 1.5 mm), ~4 m, GX20-7 female plug | Same length as the original pedal (4.3 m). |
 
-**Pot life:** the PTA is rated at **15,000 slide cycles**. That's fine for hobby use (several years), but it is the
-wear part, which is why it's a plug-in THT part at an easy-to-reach position. A conductive-plastic slide pot of the same
-footprint is the upgrade path if it wears out.
+**Both switch poles are wired in parallel, in a fail-safe way.** The PVA datasheet doesn't label which PVA1 pins
+form each pole. By analogy with the PVA2 drawing, the poles are pads 1–2 and 3–4. The board ties
+**pads 1+3 → TRIG_COM** and **pads 2+4 → TRIG_NO**:
+
+- **If the guess is right** (1–2 / 3–4), or the poles are diagonal (1–4 / 2–3), both poles end up in parallel. That gives
+  redundant contacts for a low-level signal.
+- **If the poles are really 1–3 / 2–4**, each pole just joins COM to COM and NO to NO, so the switch **never closes**.
+  It can never be stuck *on*. Check with a meter before first use.
+
+**Pot life:** the PTA is rated at **15,000 slide cycles**. With a set-and-leave slider (rather than a pedal that moves
+on every weld) that goes much further than in rev 1. A conductive-plastic slide pot of the same footprint is the
+upgrade path.
 
 **No filtering or ESD parts on the board.** The original pedal is a bare pot and switch, and the machine's input
-circuitry was designed for that. Adding capacitors could change how the machine's input behaves for no known benefit.
-If HF-start interference shows up in testing, the first fix is a shielded cable with the shield grounded at the machine end.
+circuitry was designed for that. If HF-start interference shows up, the first fix is a shielded cable with the shield
+grounded at the machine end.
 
 ---
 
-## 4. Mechanism (see `docs/mechanism.svg`)
+## 4. Mechanics and heights (see `docs/mechanism.svg`)
 
-It's a **bell-crank with a pin-in-slot (Scotch-yoke) drive**:
+All heights are measured from the PCB bottom, using nominal datasheet values:
 
-1. **Lever:** the finger lever and a downward **drive arm** are one rigid part that turns on pivot **P**.
-2. **Pin and shoe:** a pin at the end of the drive arm runs in a **vertical slot** in a small **shoe** pressed onto the pot lever.
-3. **Motion:** when the arm swings, the pin's horizontal motion moves the slider, and its small vertical motion (1.2 mm) is absorbed by the slot.
-4. **Travel:** slider travel is x = 2·r·sin(θ/2), with r = pivot-to-pin distance and θ = total swing.
+| Item | Height |
+|---|---|
+| PCB | 1.6 mm |
+| Pot body top | 8.1 mm |
+| PVA1 body top | 12.5 mm |
+| Lid (2 mm), resting just above the PVA1 body | 12.9 → **14.9 mm** |
+| PTA lever top (15 mm lever) | 18.1 mm (3.2 mm through the lid; the knob clamps on here) |
+| PVA1 plunger top | 16.6 mm (plus a printed cap ≈ 18.9 mm) |
+| **Knob top** | **≈ 19.9 mm** |
 
-| r (pivot → pin) | θ | Slider | Finger travel at 35 mm | Pivot height above PCB bottom |
-|---|---|---|---|---|
-| 20 mm | 45° | 15.3 mm | ≈27 mm | ≈36 mm |
-| **25 mm (chosen)** | **35°** | **15.0 mm** | **≈21 mm** | **≈41 mm** |
-| 30 mm | 29° | 15.0 mm | ≈18 mm | ≈46 mm |
+Rev 1 reached about 50 mm, so this is about **30 mm lower**.
 
-**Why r = 25 mm and θ = 35°:** it balances finger travel against housing height. The swing is symmetric about vertical
-(±17.5°), so the pot position is linear in lever angle to within 1.6 %.
+Housing notes:
 
-**Direction:**
-
-- **At rest:** the drive arm leans forward, so the **slider sits at the front end**.
-- **At full press:** it sits at the rear end.
-- **Result:** at rest the wiper is next to RV1 pin 3, which is **plug pin 5**. So at rest P4–P5 ≈ 0.5 kΩ and P3–P4 ≈ 50 kΩ.
-
-Measure your pedal at rest. **If it's the other way round (P3–P4 low at rest), swap the wires on plug pins 3 and 5.**
-Nothing on the PCB changes.
-
-**Trigger timing:**
-
-- **Cam sector:** a cam sector on the lever sits in the switch's plane, 9 mm beside the pot. Its underside is an arc
-  **centred on the pivot** (R ≈ 29.6 mm), so once it is over the D2F roller, further rotation doesn't push the roller
-  any deeper (a *dwell*). That protects the switch's small 0.5 mm overtravel.
-- **Engagement:** it reaches the roller after about **2–2.5°** of swing (slider ≈1.1 mm, ≈7 % current). The arc
-  therefore starts near minimum current, and on release the current falls back before the contact opens.
-- **Tuning:** R is a to-be-tuned number. D2F operating-position tolerance is ±1.2 mm, so print the sector and adjust
-  (or shim the board) on the first prototype.
-
-**Stops and spring:**
-
-- **End stops:** both are in the housing, not on the pot (its internal stop is rated 5 kgf, and a finger can exceed that).
-- **Return spring:** a torsion spring at P, ≈1–2 N at the finger pad. The pot needs 30–250 gf to slide, plus 0.8 N for the switch.
-
-**Height trade-off:** with the pot lying flat, the pivot sits ≈41 mm above the PCB bottom. If that's too tall on the
-torch, the options are (a) r = 20 mm / θ = 45° (−5 mm height, +6 mm finger travel), or
-(b) mount the board vertically along the side of the torch handle so the torch body takes up part of that height.
+- **Lid slot:** the slot for the pot lever is 15 mm of travel plus the 4 mm lever, so about 19.5 × 1.5 mm.
+  The **knob has a skirt** wider than the slot, so it covers the slot at every position and keeps dust out of the pot.
+- **Lid fixing:** the lid screws into the pot's two **M2 threaded holes** (on top of the pot frame, 26 mm apart).
+  This clamps lid, pot and PCB into one stack. The PCB has **no mounting holes**, because there's no room at 19 mm wide.
+  The PCB rests in grooves or on ribs in the housing floor, which also carry the button-press force.
+- **Mounting on the torch:** two strap or zip-tie slots in the housing floor. The cable exits at the rear, alongside the torch hose.
 
 ---
 
 ## 5. PCB
 
-- **Board:** 54 × 22.5 mm, 2 layers, 1.6 mm, rounded corners (R2), 0.4 mm tracks (signal-level currents).
-  One track (POT_B) runs on the bottom layer under the pot. There is no ground plane: the circuit has no ground.
-- **Placement follows the mechanism:**
-  - **Cable:** the pads are at the **rear** edge, where the torch hose runs.
-  - **Pot:** RV1's centre (slider mid-travel) is directly under the pivot axis.
-  - **Switch:** SW1 sits beside the pot, with its **roller exactly under the pivot axis**.
-  - **Markings:** the pivot line and roller position are drawn on the `User.Drawings` layer for the housing design.
-- **J1 pad order** (top to bottom on the board) is chosen for untangled routing and is marked on the silkscreen:
+- **Board:** **58.5 × 19 mm**, 2 layers, 1.6 mm, rounded corners (R2), 0.4 mm tracks (signal-level currents).
+  All copper is on the top layer, with no vias. There is no ground plane: the circuit has no ground.
+- **Width:** the 19 mm is set by the 5-pad cable column (16 mm of pads at 4 mm pitch, plus pad size and edge clearance).
+  The pot is only 11 mm wide including its tabs. A 3.7 mm pitch pad set would bring the board to about 18 mm, but only
+  with cable insulation of 1 mm OD or less.
+- **Layout, rear to front (cable → torch head):**
+  1. **Cable pads (J1):** at the rear edge.
+  2. **Slide pot (RV1):** its slider runs along the board centreline.
+  3. **Latching button (SW1):** at the front, centred.
+- **Routing:** the pot and switch connections that pass alongside the pot run in lanes above and below the pot body.
+- **Pot direction:** RV1 pin 1 (the rear end) connects to plug pin 3, so the **rear slider position = wiper next to
+  plug pin 3**, i.e. P3–P4 ≈ 0.5 kΩ. If the machine gives *maximum* current at the rear, swap the wires on plug pins 3 and 5.
+- **J1 pad order** (top to bottom) is chosen so nothing crosses. It's printed on the **bottom** silkscreen next to each pad:
 
 | J1 pad | Silk | Net | Plug pin | Diagram colour |
 |---|---|---|---|---|
-| 1 | P3 | POT_A | 3 | blue |
-| 2 | P4 | WIPER | 4 | brown |
-| 3 | P5 | POT_B | 5 | red |
-| 4 | P1 | TRIG_COM | 1 | black |
+| 1 | P1 | TRIG_COM | 1 | black |
+| 2 | P3 | POT_A | 3 | blue |
+| 3 | P4 | WIPER | 4 | brown |
+| 4 | P5 | POT_B | 5 | red |
 | 5 | P2 | TRIG_NO | 2 | white |
 
-- **D2F footprint:** it's custom (`tigsich.pretty/SW_Omron_D2F-01L3`), because KiCad's library doesn't have one.
-  It was made from the Omron datasheet: 3 × Ø1.2 mm holes at 5.08 mm pitch, body 12.8 × 5.8 mm. The pad numbers follow the
-  `Switch:SW_SPDT` symbol: **2 = COM (left), 1 = NO (middle, square pad), 3 = NC (right)**.
+- **Footprints:** all come from the standard KiCad library, so the project has no custom footprint library.
 - **3D models:** `tigsich.3dshapes/*.wrl` are **rough block models** for fit checks only. KiCad has no PTA1543 or
-  D2F model. Download the vendor STEP files before designing the housing.
+  PVA1 model. Download the vendor STEP files before designing the housing.
 
 **Verification:**
 
@@ -173,9 +169,8 @@ torch, the options are (a) r = 20 mm / θ = 45° (−5 mm height, +6 mm finger t
 | Path | Content |
 |---|---|
 | `tigsich.kicad_pro/.kicad_sch/.kicad_pcb` | KiCad project |
-| `tigsich.pretty/` | Project footprint library (D2F) |
 | `tigsich.3dshapes/` | Approximate 3D models |
-| `docs/mechanism.svg` | Scaled side view and lever-swing timing chart |
+| `docs/mechanism.svg` | Scaled side view with heights |
 | `docs/schematic.pdf` / `.png` | Schematic exports |
 | `docs/pcb_layout.png`, `docs/pcb_3d.png` | Board renders |
 | `configuration.jpeg` | 7-pin plug pinout reference |
@@ -185,12 +180,14 @@ torch, the options are (a) r = 20 mm / θ = 45° (−5 mm height, +6 mm finger t
 ## Open items / before first use
 
 1. **Measure the socket.** With the machine on and the pedal unplugged, measure the DC voltage across 3–5, across 1–2, and from
-   each pin to the case. It must be **≤ 30 V** on 1–2 for the D2F-01. Don't strike an arc (HF start) while probing.
-2. **Check the pot direction** against the pedal at rest (section 4), and swap plug pins 3/5 if needed.
-3. **Check part dimensions** against real parts: PTA lever height (sets the pin height and the pivot height),
-   and the D2F roller free and operating positions (set the cam radius).
-4. **Design the housing:** lever and drive arm, shoe, cam sector, torsion spring, end stops, strap slots, and a cable gland.
-5. **Test first on scrap:** check minimum and maximum current, that the trigger releases reliably, and that HF start
+   each pin to the case. It must be ≤ 50 V on 1–2 for the PVA1. Don't strike an arc (HF start) while probing.
+2. **Check the switch.** Before soldering, check with a meter that pins 1–2 and 3–4 of the PVA1 close when it's latched.
+   On the finished board, check that P1–P2 is open when the button is released and closed when it's latched.
+3. **Check the pot direction:** the rear slider position should give minimum current. Swap plug pins 3/5 if needed.
+4. **Check part dimensions** against real parts: PTA lever height and PVA1 body height set the lid height.
+5. **Design the housing:** lid with slot and M2 screws into the pot, knob with skirt, button cap, PCB grooves,
+   strap slots, cable gland.
+6. **Test first on scrap:** check minimum and maximum current, that the latch works with gloves on, and that HF start
    doesn't cause flicker. If it does, use a shielded cable.
 
 ## Sources
@@ -198,5 +195,6 @@ torch, the options are (a) r = 20 mm / θ = 45° (−5 mm height, +6 mm finger t
 - [SSC C910-0725 info sheet (same 7-pin pinout)](https://ssccontrols.com/uploads/Product-Information-Sheet-C910-0725-TIG-Foot-Controls.pdf)
 - [IPOTools FT-47K-CL8 foot pedal](https://ipotools.eu/product/tig-foot-pedal/)
 - [Bourns PTA series datasheet](https://www.bourns.com/docs/product-datasheets/pta.pdf)
-- [Omron D2F datasheet](https://omronfs.omron.com/en_US/ecb/products/pdf/en-d2f.pdf)
-- [6061 Finger Pedal (concept reference)](https://www.6061.com/fingerpedal.htm)
+- [C&K PVA series datasheet](https://www.mouser.com/datasheet/2/240/pva-3050984.pdf)
+- [PVA1 EE H4 1.2N V2 on DigiKey](https://www.digikey.com/en/products/detail/c-k/PVA1-EE-H4-1-2N-V2/417716)
+- [6061 Slide Lever (concept reference)](https://www.6061.com/slidelever.htm)

@@ -1,4 +1,0 @@
-(fp_lib_table
-	(version 7)
-	(lib (name "tigsich")(type "KiCad")(uri "${KIPRJMOD}/tigsich.pretty")(options "")(descr "Project-local footprints"))
-)

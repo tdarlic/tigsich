@@ -7,8 +7,8 @@
 	(title_block
 		(title "TIGSICH - finger remote for IPOTools SuperTIG 200Di")
 		(date "2026-09-23")
-		(rev "1")
-		(comment 1 "Passive: 50k slide pot (current demand) + microswitch (trigger)")
+		(rev "2")
+		(comment 1 "Passive: 50k thumb slide pot (current) + latching push-button (arc on/off)")
 		(comment 2 "Replaces FT-47K-CL8 foot pedal; GX20-7 plug, pins 6-7 bridged in plug")
 	)
 	(lib_symbols
@@ -274,7 +274,7 @@
 		)
 		(embedded_fonts no)
 	)
-	(symbol "Switch:SW_SPDT"
+	(symbol "Switch:SW_DPST"
 		(pin_names
 			(offset 0)
 			(hide yes)
@@ -285,7 +285,7 @@
 		(in_pos_files yes)
 		(duplicate_pin_numbers_are_jumpers no)
 		(property "Reference" "SW"
-			(at 0 5.08 0)
+			(at 0 6.35 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -294,7 +294,7 @@
 				)
 			)
 		)
-		(property "Value" "SW_SPDT"
+		(property "Value" "SW_DPST"
 			(at 0 -5.08 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -316,17 +316,6 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 0 -7.62 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "Switch, single pole double throw"
 			(at 0 0 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -337,7 +326,7 @@
 				)
 			)
 		)
-		(property "ki_keywords" "switch single-pole double-throw spdt ON-ON"
+		(property "Description" "Double Pole Single Throw (DPST) Switch"
 			(at 0 0 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -348,10 +337,32 @@
 				)
 			)
 		)
-		(symbol "SW_SPDT_0_1"
+		(property "ki_keywords" "switch dual double-pole single-throw OFF-ON"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(symbol "SW_DPST_0_0"
 			(circle
-				(center -2.032 0)
-				(radius 0.4572)
+				(center -2.032 2.54)
+				(radius 0.508)
+				(stroke
+					(width 0)
+					(type default)
+				)
+				(fill
+					(type none)
+				)
+			)
+			(circle
+				(center -2.032 -2.54)
+				(radius 0.508)
 				(stroke
 					(width 0)
 					(type default)
@@ -362,7 +373,67 @@
 			)
 			(polyline
 				(pts
-					(xy -1.651 0.254) (xy 1.651 2.286)
+					(xy -1.524 2.794) (xy 1.27 4.064)
+				)
+				(stroke
+					(width 0)
+					(type default)
+				)
+				(fill
+					(type none)
+				)
+			)
+			(polyline
+				(pts
+					(xy -1.524 -2.286) (xy 1.27 -1.016)
+				)
+				(stroke
+					(width 0)
+					(type default)
+				)
+				(fill
+					(type none)
+				)
+			)
+			(polyline
+				(pts
+					(xy 0 2.54) (xy 0 3.175)
+				)
+				(stroke
+					(width 0)
+					(type default)
+				)
+				(fill
+					(type none)
+				)
+			)
+			(polyline
+				(pts
+					(xy 0 1.27) (xy 0 1.905)
+				)
+				(stroke
+					(width 0)
+					(type default)
+				)
+				(fill
+					(type none)
+				)
+			)
+			(polyline
+				(pts
+					(xy 0 0) (xy 0 0.635)
+				)
+				(stroke
+					(width 0)
+					(type default)
+				)
+				(fill
+					(type none)
+				)
+			)
+			(polyline
+				(pts
+					(xy 0 -1.27) (xy 0 -0.635)
 				)
 				(stroke
 					(width 0)
@@ -374,7 +445,7 @@
 			)
 			(circle
 				(center 2.032 2.54)
-				(radius 0.4572)
+				(radius 0.508)
 				(stroke
 					(width 0)
 					(type default)
@@ -385,7 +456,7 @@
 			)
 			(circle
 				(center 2.032 -2.54)
-				(radius 0.4572)
+				(radius 0.508)
 				(stroke
 					(width 0)
 					(type default)
@@ -395,9 +466,9 @@
 				)
 			)
 		)
-		(symbol "SW_SPDT_1_1"
+		(symbol "SW_DPST_1_1"
 			(rectangle
-				(start -3.175 3.81)
+				(start -3.175 4.445)
 				(end 3.175 -3.81)
 				(stroke
 					(width 0)
@@ -408,9 +479,9 @@
 				)
 			)
 			(pin passive line
-				(at 5.08 2.54 180)
+				(at -5.08 -2.54 0)
 				(length 2.54)
-				(name "A"
+				(name "1"
 					(effects
 						(font
 							(size 1.27 1.27)
@@ -426,9 +497,9 @@
 				)
 			)
 			(pin passive line
-				(at -5.08 0 0)
+				(at 5.08 -2.54 180)
 				(length 2.54)
-				(name "B"
+				(name "2"
 					(effects
 						(font
 							(size 1.27 1.27)
@@ -444,9 +515,9 @@
 				)
 			)
 			(pin passive line
-				(at 5.08 -2.54 180)
+				(at -5.08 2.54 0)
 				(length 2.54)
-				(name "C"
+				(name "3"
 					(effects
 						(font
 							(size 1.27 1.27)
@@ -454,6 +525,24 @@
 					)
 				)
 				(number "3"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at 5.08 2.54 180)
+				(length 2.54)
+				(name "4"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "4"
 					(effects
 						(font
 							(size 1.27 1.27)
@@ -709,198 +798,89 @@
 		)
 		(embedded_fonts no)
 	)
-	(symbol "Mechanical:MountingHole"
-		(pin_names
-			(offset 1.016)
-		)
-		(exclude_from_sim no)
-		(in_bom no)
-		(on_board yes)
-		(in_pos_files yes)
-		(duplicate_pin_numbers_are_jumpers no)
-		(property "Reference" "H"
-			(at 0 5.08 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "MountingHole"
-			(at 0 3.175 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 0 0 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 0 0 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "Mounting Hole without connection"
-			(at 0 0 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ki_keywords" "mounting hole"
-			(at 0 0 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ki_fp_filters" "MountingHole*"
-			(at 0 0 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(symbol "MountingHole_0_1"
-			(circle
-				(center 0 0)
-				(radius 1.27)
-				(stroke
-					(width 1.27)
-					(type default)
-				)
-				(fill
-					(type none)
-				)
-			)
-		)
-		(embedded_fonts no)
 	)
-	)
-	(symbol (lib_id "Device:R_Potentiometer_US") (at 107.95 91.44 0) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced no) (uuid "d51390fb-0e3c-405c-8b57-0cb2ccca7758")
+	(symbol (lib_id "Device:R_Potentiometer_US") (at 107.95 91.44 0) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced no) (uuid "2ee13d65-bfe2-40e5-bc52-09ab8982cae9")
 		(property "Reference" "RV1" (at 104.14 90.17 0) (effects (font (size 1.27 1.27)) (justify right)))
 		(property "Value" "50k" (at 104.14 92.71 0) (effects (font (size 1.27 1.27)) (justify right)))
 		(property "Footprint" "Potentiometer_THT:Potentiometer_Bourns_PTA1543_Single_Slide" (at 107.95 91.44 0) (effects (font (size 1.27 1.27)) (hide yes)))
 		(property "Datasheet" "https://www.bourns.com/docs/product-datasheets/pta.pdf" (at 107.95 91.44 0) (effects (font (size 1.27 1.27)) (hide yes)))
 		(property "Description" "50k linear slide pot, 15 mm travel, no detent" (at 107.95 91.44 0) (effects (font (size 1.27 1.27)) (hide yes)))
 		(property "MPN" "PTA1543-2015CIB503" (at 107.95 91.44 0) (effects (font (size 1.27 1.27)) (hide yes)))
-		(pin "1" (uuid "92b50ae8-c84c-4dea-b9f1-996d149705d8"))
-		(pin "2" (uuid "0a588119-3251-4f68-88f9-3c9289187c34"))
-		(pin "3" (uuid "0320bb21-454a-43e3-b33a-4fd6e92dd6ce"))
+		(pin "1" (uuid "5bbbd576-746f-4f5f-a55e-868adf5653b5"))
+		(pin "2" (uuid "842c7de1-062b-4e15-a82a-3ea73a3cc8d0"))
+		(pin "3" (uuid "c4865560-b368-4a42-b696-f6282755abd0"))
 		(instances (project "tigsich" (path "/7b1f3c2a-1d5e-4a8b-9c0d-5f1e2a3b4c5d" (reference "RV1") (unit 1))))
 	)
-	(wire (pts (xy 107.95 87.63) (xy 107.95 83.82)) (stroke (width 0) (type default) (color 0 90 200 1)) (uuid "5aa346f5-11a2-4169-bd3e-525866f7de60"))
-	(wire (pts (xy 107.95 83.82) (xy 123.19 83.82)) (stroke (width 0) (type default) (color 0 90 200 1)) (uuid "57391b68-9e6c-4cf6-973c-d37a50a21f78"))
-	(label "POT_A" (at 123.19 83.82 0) (effects (font (size 1.27 1.27)) (justify left bottom)) (uuid "520ef523-8040-4c6c-80fa-237a45ca9791"))
-	(wire (pts (xy 111.76 91.44) (xy 123.19 91.44)) (stroke (width 0) (type default) (color 0 90 200 1)) (uuid "7c8685f0-6081-4c19-8e79-c27a41388dd6"))
-	(label "WIPER" (at 123.19 91.44 0) (effects (font (size 1.27 1.27)) (justify left bottom)) (uuid "a1157dfa-b03a-4c0c-a6a4-375208fa7291"))
-	(wire (pts (xy 107.95 95.25) (xy 107.95 99.06)) (stroke (width 0) (type default) (color 0 90 200 1)) (uuid "a049d3d6-2bc1-4b59-b785-0a514a4d3eb5"))
-	(wire (pts (xy 107.95 99.06) (xy 123.19 99.06)) (stroke (width 0) (type default) (color 0 90 200 1)) (uuid "6a9aac2e-6d76-4382-bd7c-6d7ee15aef77"))
-	(label "POT_B" (at 123.19 99.06 0) (effects (font (size 1.27 1.27)) (justify left bottom)) (uuid "e3235efd-3beb-4f19-98ef-6f70ef284bd9"))
-	(rectangle (start 93.98 76.2) (end 134.62 104.14) (stroke (width 0.254) (type dash) (color 0 90 200 1)) (fill (type none)) (uuid "b96ee1f4-9933-4544-a5ee-cabced2505fc"))
-	(text "CURRENT DEMAND" (exclude_from_sim no) (at 95.25 78.74 0) (effects (font (size 1.524 1.524) (bold yes)) (justify left)) (uuid "3d569342-e946-417d-9b23-08fb4f0da782"))
-	(symbol (lib_id "Switch:SW_SPDT") (at 116.84 115.57 0) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced no) (uuid "372ddbbd-e3e9-4cab-83a3-5f7fc758c671")
-		(property "Reference" "SW1" (at 116.84 110.49 0) (effects (font (size 1.27 1.27))))
-		(property "Value" "D2F-01L3" (at 116.84 120.65 0) (effects (font (size 1.27 1.27))))
-		(property "Footprint" "tigsich:SW_Omron_D2F-01L3" (at 116.84 115.57 0) (effects (font (size 1.27 1.27)) (hide yes)))
-		(property "Datasheet" "https://omronfs.omron.com/en_US/ecb/products/pdf/en-d2f.pdf" (at 116.84 115.57 0) (effects (font (size 1.27 1.27)) (hide yes)))
-		(property "Description" "Omron microswitch, gold contacts, simulated roller lever" (at 116.84 115.57 0) (effects (font (size 1.27 1.27)) (hide yes)))
-		(property "MPN" "D2F-01L3" (at 116.84 115.57 0) (effects (font (size 1.27 1.27)) (hide yes)))
-		(pin "1" (uuid "58c4afe9-c992-4f3e-9eaf-97d45db3842d"))
-		(pin "2" (uuid "48d3783d-f2c4-47fe-a103-66abdba99a44"))
-		(pin "3" (uuid "3b17a9be-6db8-4675-a332-6b8505d8aa3a"))
+	(wire (pts (xy 107.95 87.63) (xy 107.95 83.82)) (stroke (width 0) (type default) (color 0 90 200 1)) (uuid "4d5e4cea-c427-4720-b755-93866eb7e049"))
+	(wire (pts (xy 107.95 83.82) (xy 123.19 83.82)) (stroke (width 0) (type default) (color 0 90 200 1)) (uuid "b8038e96-7962-45db-aee4-a3f09d535532"))
+	(label "POT_A" (at 123.19 83.82 0) (effects (font (size 1.27 1.27)) (justify left bottom)) (uuid "1bd52d21-9c70-49f9-a2ce-3e4f1ee807cc"))
+	(wire (pts (xy 111.76 91.44) (xy 123.19 91.44)) (stroke (width 0) (type default) (color 0 90 200 1)) (uuid "c23fd5e6-7a69-449d-adcf-d52fb98c9537"))
+	(label "WIPER" (at 123.19 91.44 0) (effects (font (size 1.27 1.27)) (justify left bottom)) (uuid "a59429ea-430b-44f7-b0e8-711653caac65"))
+	(wire (pts (xy 107.95 95.25) (xy 107.95 99.06)) (stroke (width 0) (type default) (color 0 90 200 1)) (uuid "1fff1418-4a30-4a93-b837-f46a8cfe145a"))
+	(wire (pts (xy 107.95 99.06) (xy 123.19 99.06)) (stroke (width 0) (type default) (color 0 90 200 1)) (uuid "475554d7-de8f-4a07-a49d-7730dcbd2de6"))
+	(label "POT_B" (at 123.19 99.06 0) (effects (font (size 1.27 1.27)) (justify left bottom)) (uuid "53d8fd20-25a1-4e3c-9e2e-22e09e7b9e2b"))
+	(rectangle (start 93.98 76.2) (end 134.62 104.14) (stroke (width 0.254) (type dash) (color 0 90 200 1)) (fill (type none)) (uuid "d5613feb-f77d-401a-8818-5df297f1c1f5"))
+	(text "CURRENT DEMAND" (exclude_from_sim no) (at 95.25 78.74 0) (effects (font (size 1.524 1.524) (bold yes)) (justify left)) (uuid "0199d9f0-0d17-4785-b4cd-aeb9925ed0fc"))
+	(symbol (lib_id "Switch:SW_DPST") (at 113.03 116.84 0) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced no) (uuid "2b62d2cd-3d9b-4d8c-891d-6bcba24dea80")
+		(property "Reference" "SW1" (at 113.03 110.49 0) (effects (font (size 1.27 1.27))))
+		(property "Value" "PVA1 EE H4" (at 113.03 123.19 0) (effects (font (size 1.27 1.27))))
+		(property "Footprint" "Button_Switch_THT:SW_Push_2P1T_Toggle_CK_PVA1xxH4xxxxxxV2" (at 113.03 116.84 0) (effects (font (size 1.27 1.27)) (hide yes)))
+		(property "Datasheet" "https://www.mouser.com/datasheet/2/240/pva-3050984.pdf" (at 113.03 116.84 0) (effects (font (size 1.27 1.27)) (hide yes)))
+		(property "Description" "C&K PVA1 push-on/push-off (latching) DPST, sealed, 15 mm" (at 113.03 116.84 0) (effects (font (size 1.27 1.27)) (hide yes)))
+		(property "MPN" "PVA1 EE H4 1.2N V2" (at 113.03 116.84 0) (effects (font (size 1.27 1.27)) (hide yes)))
+		(pin "1" (uuid "52934165-223b-4191-aea6-b8e26acdb82d"))
+		(pin "2" (uuid "6c4282c0-ce01-4bd2-8440-1b7b33f37d21"))
+		(pin "3" (uuid "5aafc1f9-ad4d-4fdb-997d-ddf904c9547d"))
+		(pin "4" (uuid "24a411f6-7013-4f4c-be76-0a75bea9f5c6"))
 		(instances (project "tigsich" (path "/7b1f3c2a-1d5e-4a8b-9c0d-5f1e2a3b4c5d" (reference "SW1") (unit 1))))
 	)
-	(wire (pts (xy 111.76 115.57) (xy 104.14 115.57)) (stroke (width 0) (type default) (color 210 110 0 1)) (uuid "de98f51f-2f5f-45dc-909b-72dbff8f21fb"))
-	(label "TRIG_COM" (at 104.14 115.57 180) (effects (font (size 1.27 1.27)) (justify right bottom)) (uuid "d0a573bb-3d59-4b7e-b079-132c09f8d13d"))
-	(wire (pts (xy 121.92 113.03) (xy 123.19 113.03)) (stroke (width 0) (type default) (color 210 110 0 1)) (uuid "c0d7883a-047b-404f-8cbb-68f43e8ba3bb"))
-	(label "TRIG_NO" (at 123.19 113.03 0) (effects (font (size 1.27 1.27)) (justify left bottom)) (uuid "e4bebd5c-9c85-470d-a030-a9f30edfcc3c"))
-	(no_connect (at 121.92 118.11) (uuid "c6f4e2d8-6b1a-46ff-9162-a355e0ac51ec"))
-	(rectangle (start 93.98 106.68) (end 134.62 128.27) (stroke (width 0.254) (type dash) (color 210 110 0 1)) (fill (type none)) (uuid "6e4d147c-7107-401d-ae37-9eda22e647d0"))
-	(text "TRIGGER" (exclude_from_sim no) (at 95.25 109.22 0) (effects (font (size 1.524 1.524) (bold yes)) (justify left)) (uuid "e1dadd8f-99c9-4ed6-8b26-0058be3601e6"))
-	(text "Closes in first ~2.5° of lever swing,\nheld by a dwell cam for the rest" (exclude_from_sim no) (at 95.25 124.46 0) (effects (font (size 1 1)) (justify left)) (uuid "4105002b-def6-4343-a4b0-fca52c164519"))
-	(symbol (lib_id "Connector_Generic:Conn_01x05") (at 152.4 99.06 0) (unit 1) (exclude_from_sim no) (in_bom no) (on_board yes) (dnp no) (fields_autoplaced no) (uuid "5624bd07-1603-4dfa-a522-ac7397775f69")
+	(wire (pts (xy 107.95 114.3) (xy 105.41 114.3)) (stroke (width 0) (type default) (color 210 110 0 1)) (uuid "40dc4456-59ad-4abd-aeb0-b55185b2dc02"))
+	(wire (pts (xy 105.41 114.3) (xy 105.41 119.38)) (stroke (width 0) (type default) (color 210 110 0 1)) (uuid "c577617d-986f-4c81-972d-b9b4c1a75a40"))
+	(wire (pts (xy 105.41 119.38) (xy 107.95 119.38)) (stroke (width 0) (type default) (color 210 110 0 1)) (uuid "a7d6bab0-2dfa-4db8-a70a-b241ede70c9a"))
+	(wire (pts (xy 118.11 114.3) (xy 120.65 114.3)) (stroke (width 0) (type default) (color 210 110 0 1)) (uuid "39f654ce-c3c8-49d0-a337-03fd2a6ac405"))
+	(wire (pts (xy 120.65 114.3) (xy 120.65 119.38)) (stroke (width 0) (type default) (color 210 110 0 1)) (uuid "48c84523-083f-4aa3-8fe0-ee94e8ec9406"))
+	(wire (pts (xy 120.65 119.38) (xy 118.11 119.38)) (stroke (width 0) (type default) (color 210 110 0 1)) (uuid "ef560f3e-abd1-4dd4-83da-403bff8bc669"))
+	(wire (pts (xy 105.41 116.84) (xy 106.68 116.84)) (stroke (width 0) (type default) (color 210 110 0 1)) (uuid "874057ca-c443-4061-9a2f-c232e7a1077b"))
+	(label "TRIG_COM" (at 106.68 116.84 180) (effects (font (size 1.27 1.27)) (justify right bottom)) (uuid "cbb633e8-510c-445d-983c-eb1091ecf24b"))
+	(wire (pts (xy 120.65 116.84) (xy 123.19 116.84)) (stroke (width 0) (type default) (color 210 110 0 1)) (uuid "a071b7d7-ec6c-4724-85bc-ca219e2957c8"))
+	(label "TRIG_NO" (at 123.19 116.84 0) (effects (font (size 1.27 1.27)) (justify left bottom)) (uuid "ea613df8-05b9-4ad2-b705-ebf46b84b72c"))
+	(junction (at 105.41 116.84) (diameter 0) (color 0 0 0 0) (uuid "d6386069-7a0f-49f6-89c5-184fa5c0bd0b"))
+	(junction (at 120.65 116.84) (diameter 0) (color 0 0 0 0) (uuid "2d3e808e-851e-49c7-bc19-06eb173948c8"))
+	(rectangle (start 93.98 106.68) (end 134.62 132.08) (stroke (width 0.254) (type dash) (color 210 110 0 1)) (fill (type none)) (uuid "cd8b72a9-fb64-4ea2-9947-15db17caf485"))
+	(text "TRIGGER (latching)" (exclude_from_sim no) (at 95.25 109.22 0) (effects (font (size 1.524 1.524) (bold yes)) (justify left)) (uuid "7cb6eb82-7b6f-450d-9ba0-54836be778b3"))
+	(text "Push-on / push-off. Both poles in parallel:\nif the pole pairing differs from the datasheet\nguess, the switch simply never closes (fail-safe)." (exclude_from_sim no) (at 95.25 126.49 0) (effects (font (size 1 1)) (justify left)) (uuid "89e540fd-78d1-489c-9b91-b9fdf4d07ecb"))
+	(symbol (lib_id "Connector_Generic:Conn_01x05") (at 152.4 99.06 0) (unit 1) (exclude_from_sim no) (in_bom no) (on_board yes) (dnp no) (fields_autoplaced no) (uuid "ae76d342-5cc1-406e-b6a4-024e27d9f3fb")
 		(property "Reference" "J1" (at 152.4 91.44 0) (effects (font (size 1.27 1.27))))
 		(property "Value" "Cable" (at 152.4 107.95 0) (effects (font (size 1.27 1.27))))
 		(property "Footprint" "Connector_Wire:SolderWire-0.15sqmm_1x05_P4mm_D0.5mm_OD1.5mm_Relief" (at 152.4 99.06 0) (effects (font (size 1.27 1.27)) (hide yes)))
 		(property "Datasheet" "" (at 152.4 99.06 0) (effects (font (size 1.27 1.27)) (hide yes)))
 		(property "Description" "5-core cable solder pads with strain-relief holes" (at 152.4 99.06 0) (effects (font (size 1.27 1.27)) (hide yes)))
-		(pin "1" (uuid "a52f74f7-15f9-4f65-ae0a-e1be0786346b"))
-		(pin "2" (uuid "b6834452-a8ba-4661-92c1-ff5578399dad"))
-		(pin "3" (uuid "4770156e-90a7-42a7-92b2-aadd5ef69882"))
-		(pin "4" (uuid "78d6e8af-ad01-4231-aa55-3b57ecbc52df"))
-		(pin "5" (uuid "53b29ced-b195-4aa7-a7be-a32e25e7dcbe"))
+		(pin "1" (uuid "a202121f-767b-4999-b1f4-4b74d18a7a57"))
+		(pin "2" (uuid "bad224d5-4ee8-430b-8f3b-f4982cf21cf9"))
+		(pin "3" (uuid "d55b4449-e008-4dd4-8b1d-a88ac7ea27e1"))
+		(pin "4" (uuid "a13cad50-3ce3-43ea-8c2e-24d348c0704b"))
+		(pin "5" (uuid "8a3feebe-aa89-4c18-8a0a-8fafc1dc8b49"))
 		(instances (project "tigsich" (path "/7b1f3c2a-1d5e-4a8b-9c0d-5f1e2a3b4c5d" (reference "J1") (unit 1))))
 	)
-	(wire (pts (xy 147.32 93.98) (xy 139.7 93.98)) (stroke (width 0) (type default) (color 0 90 200 1)) (uuid "463bdb88-1de5-4e81-9856-c6ba3de95c4a"))
-	(label "POT_A" (at 139.7 93.98 180) (effects (font (size 1.27 1.27)) (justify right bottom)) (uuid "63038f8b-1405-41e3-9d2d-241185fe84fc"))
-	(text "→ plug pin 3 (blue)" (exclude_from_sim no) (at 156.21 93.98 0) (effects (font (size 1.27 1.27)) (justify left)) (uuid "c8fd80a6-88f3-44bc-9cab-e8dc4cf4447f"))
-	(wire (pts (xy 147.32 96.52) (xy 139.7 96.52)) (stroke (width 0) (type default) (color 0 90 200 1)) (uuid "590f0baf-4adb-4e42-b28d-8cd3c94d2fce"))
-	(label "WIPER" (at 139.7 96.52 180) (effects (font (size 1.27 1.27)) (justify right bottom)) (uuid "5a0fdfea-4919-4307-ab4c-0e9aefa52f50"))
-	(text "→ plug pin 4 (brown)" (exclude_from_sim no) (at 156.21 96.52 0) (effects (font (size 1.27 1.27)) (justify left)) (uuid "353d3bfb-4c56-419a-8044-4a699befff55"))
-	(wire (pts (xy 147.32 99.06) (xy 139.7 99.06)) (stroke (width 0) (type default) (color 0 90 200 1)) (uuid "7009ae2d-0de7-49f3-82c4-3e5a7825850c"))
-	(label "POT_B" (at 139.7 99.06 180) (effects (font (size 1.27 1.27)) (justify right bottom)) (uuid "7ba58e49-0cab-4814-8523-749475f14b4c"))
-	(text "→ plug pin 5 (red)" (exclude_from_sim no) (at 156.21 99.06 0) (effects (font (size 1.27 1.27)) (justify left)) (uuid "8a32daf3-caa2-4a23-b6de-3b4427fe0e4c"))
-	(wire (pts (xy 147.32 101.6) (xy 139.7 101.6)) (stroke (width 0) (type default) (color 210 110 0 1)) (uuid "84f3ddc4-d2ed-46b2-8330-15372faa4968"))
-	(label "TRIG_COM" (at 139.7 101.6 180) (effects (font (size 1.27 1.27)) (justify right bottom)) (uuid "93b0b9e9-5c6b-4f14-a0e1-12093f156ac8"))
-	(text "→ plug pin 1 (black)" (exclude_from_sim no) (at 156.21 101.6 0) (effects (font (size 1.27 1.27)) (justify left)) (uuid "f3569181-8957-4dc0-890f-3e30932bbab3"))
-	(wire (pts (xy 147.32 104.14) (xy 139.7 104.14)) (stroke (width 0) (type default) (color 210 110 0 1)) (uuid "5ac75a04-4704-4e2b-a201-123410857acc"))
-	(label "TRIG_NO" (at 139.7 104.14 180) (effects (font (size 1.27 1.27)) (justify right bottom)) (uuid "087dba2a-9997-4014-bf76-a2556a883cee"))
-	(text "→ plug pin 2 (white)" (exclude_from_sim no) (at 156.21 104.14 0) (effects (font (size 1.27 1.27)) (justify left)) (uuid "e28c5453-4ed0-41bc-b521-5efd00ca57d9"))
-	(rectangle (start 137.16 82.55) (end 187.96 128.27) (stroke (width 0.254) (type dash) (color 80 80 80 1)) (fill (type none)) (uuid "af543036-4709-4870-8f4a-2ea39d054a2f"))
-	(text "CABLE → GX20-7 PLUG" (exclude_from_sim no) (at 138.43 85.09 0) (effects (font (size 1.524 1.524) (bold yes)) (justify left)) (uuid "9f5e6669-5726-4241-b394-c32d7fb65a7c"))
-	(text "Plug pins 6-7: bridged inside the plug\n(remote-detect link, not on this board)" (exclude_from_sim no) (at 138.43 115.57 0) (effects (font (size 1 1)) (justify left)) (uuid "f34e7db0-421d-4c19-a6fc-547d889162f9"))
-	(text "Swap pins 3 and 5 in the plug if current\nis maximum with the lever released" (exclude_from_sim no) (at 138.43 120.65 0) (effects (font (size 1 1)) (justify left)) (uuid "6385ddaa-7314-424c-86d3-92cac27bbdb9"))
-	(symbol (lib_id "Mechanical:MountingHole") (at 104.14 136.53 0) (unit 1) (exclude_from_sim no) (in_bom no) (on_board yes) (dnp no) (fields_autoplaced no) (uuid "855dbf78-8f9f-4457-b716-fce57b9d04f8")
-		(property "Reference" "H1" (at 106.68 135.89 0) (effects (font (size 1.27 1.27)) (justify left)))
-		(property "Value" "M2" (at 106.68 138.43 0) (effects (font (size 1.27 1.27)) (justify left)))
-		(property "Footprint" "MountingHole:MountingHole_2.2mm_M2" (at 104.14 136.53 0) (effects (font (size 1.27 1.27)) (hide yes)))
-		(property "Datasheet" "" (at 104.14 136.53 0) (effects (font (size 1.27 1.27)) (hide yes)))
-		(property "Description" "M2 mounting hole to housing" (at 104.14 136.53 0) (effects (font (size 1.27 1.27)) (hide yes)))
-		(instances (project "tigsich" (path "/7b1f3c2a-1d5e-4a8b-9c0d-5f1e2a3b4c5d" (reference "H1") (unit 1))))
-	)
-	(symbol (lib_id "Mechanical:MountingHole") (at 119.38 136.53 0) (unit 1) (exclude_from_sim no) (in_bom no) (on_board yes) (dnp no) (fields_autoplaced no) (uuid "51c175ec-85fc-470c-a4d7-c611cd2d45ad")
-		(property "Reference" "H2" (at 121.92 135.89 0) (effects (font (size 1.27 1.27)) (justify left)))
-		(property "Value" "M2" (at 121.92 138.43 0) (effects (font (size 1.27 1.27)) (justify left)))
-		(property "Footprint" "MountingHole:MountingHole_2.2mm_M2" (at 119.38 136.53 0) (effects (font (size 1.27 1.27)) (hide yes)))
-		(property "Datasheet" "" (at 119.38 136.53 0) (effects (font (size 1.27 1.27)) (hide yes)))
-		(property "Description" "M2 mounting hole to housing" (at 119.38 136.53 0) (effects (font (size 1.27 1.27)) (hide yes)))
-		(instances (project "tigsich" (path "/7b1f3c2a-1d5e-4a8b-9c0d-5f1e2a3b4c5d" (reference "H2") (unit 1))))
-	)
-	(rectangle (start 93.98 130.81) (end 134.62 142.24) (stroke (width 0.254) (type dash) (color 80 80 80 1)) (fill (type none)) (uuid "c214301f-00f4-48a2-81e3-65d627e30e5e"))
-	(text "MECHANICAL" (exclude_from_sim no) (at 95.25 133.35 0) (effects (font (size 1.524 1.524) (bold yes)) (justify left)) (uuid "831a31be-6b66-4bf8-a649-616f6156f46a"))
+	(wire (pts (xy 147.32 93.98) (xy 139.7 93.98)) (stroke (width 0) (type default) (color 210 110 0 1)) (uuid "32cab1ec-bbe7-49db-bc31-3529c0cf2347"))
+	(label "TRIG_COM" (at 139.7 93.98 180) (effects (font (size 1.27 1.27)) (justify right bottom)) (uuid "1d7f1ed5-03fe-43ea-8afd-9e52774fba93"))
+	(text "→ plug pin 1 (black)" (exclude_from_sim no) (at 156.21 93.98 0) (effects (font (size 1.27 1.27)) (justify left)) (uuid "d51e82aa-0c50-4db6-b1cc-18fe8069dc7d"))
+	(wire (pts (xy 147.32 96.52) (xy 139.7 96.52)) (stroke (width 0) (type default) (color 0 90 200 1)) (uuid "819e1371-880d-45d5-81d6-e280ad723fa1"))
+	(label "POT_A" (at 139.7 96.52 180) (effects (font (size 1.27 1.27)) (justify right bottom)) (uuid "a674ebbb-c3a3-4719-81e4-cde21beec58f"))
+	(text "→ plug pin 3 (blue)" (exclude_from_sim no) (at 156.21 96.52 0) (effects (font (size 1.27 1.27)) (justify left)) (uuid "b2516492-cd5e-4620-b349-128eb270162c"))
+	(wire (pts (xy 147.32 99.06) (xy 139.7 99.06)) (stroke (width 0) (type default) (color 0 90 200 1)) (uuid "e9032380-dcb0-4b83-a166-ed9852016a8d"))
+	(label "WIPER" (at 139.7 99.06 180) (effects (font (size 1.27 1.27)) (justify right bottom)) (uuid "7e7347c2-29b2-42dc-811a-78b3051f2600"))
+	(text "→ plug pin 4 (brown)" (exclude_from_sim no) (at 156.21 99.06 0) (effects (font (size 1.27 1.27)) (justify left)) (uuid "e3edda7e-f1f1-4153-ad60-e7ee0cb45510"))
+	(wire (pts (xy 147.32 101.6) (xy 139.7 101.6)) (stroke (width 0) (type default) (color 0 90 200 1)) (uuid "bf3f23ec-7345-4711-ab9a-8c422d9b86b1"))
+	(label "POT_B" (at 139.7 101.6 180) (effects (font (size 1.27 1.27)) (justify right bottom)) (uuid "37be9c76-a0ba-458f-a44e-d4b8afe757d8"))
+	(text "→ plug pin 5 (red)" (exclude_from_sim no) (at 156.21 101.6 0) (effects (font (size 1.27 1.27)) (justify left)) (uuid "7f3a35e8-0cfa-45b4-83c5-64fed2e637cc"))
+	(wire (pts (xy 147.32 104.14) (xy 139.7 104.14)) (stroke (width 0) (type default) (color 210 110 0 1)) (uuid "31444295-166e-4002-9632-52567dc09e9d"))
+	(label "TRIG_NO" (at 139.7 104.14 180) (effects (font (size 1.27 1.27)) (justify right bottom)) (uuid "6b75aaac-a2ea-462a-bb73-7954bf965475"))
+	(text "→ plug pin 2 (white)" (exclude_from_sim no) (at 156.21 104.14 0) (effects (font (size 1.27 1.27)) (justify left)) (uuid "844b710a-2adb-4cb2-ae95-cdaaf2e450e1"))
+	(rectangle (start 137.16 82.55) (end 187.96 132.08) (stroke (width 0.254) (type dash) (color 80 80 80 1)) (fill (type none)) (uuid "5ee2c560-76e7-4815-a11f-f1c58c9afc4c"))
+	(text "CABLE → GX20-7 PLUG" (exclude_from_sim no) (at 138.43 85.09 0) (effects (font (size 1.524 1.524) (bold yes)) (justify left)) (uuid "ceb7e52b-54b3-4a61-9964-3784cf6d3dcc"))
+	(text "Plug pins 6-7: bridged inside the plug\n(remote-detect link, not on this board)" (exclude_from_sim no) (at 138.43 115.57 0) (effects (font (size 1 1)) (justify left)) (uuid "b8615c9b-ef89-4693-9b44-1d85352daa89"))
+	(text "Swap pins 3 and 5 in the plug if current\nrises when sliding toward the cable end" (exclude_from_sim no) (at 138.43 120.65 0) (effects (font (size 1 1)) (justify left)) (uuid "ce8af19e-74e7-49c8-8059-d256bdc2f9e0"))
 	(sheet_instances (path "/" (page "1")))
 	(embedded_fonts no)
 )
