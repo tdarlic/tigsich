@@ -1,0 +1,3 @@
+[submodule ".claude/skills/kickstack"]
+	path = vendor/kistack
+	url = git@github.com:American-Embedded/kistack.git

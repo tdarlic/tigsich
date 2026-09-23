@@ -1,0 +1,906 @@
+(kicad_sch
+	(version 20250114)
+	(generator "eeschema")
+	(generator_version "9.0")
+	(uuid "7b1f3c2a-1d5e-4a8b-9c0d-5f1e2a3b4c5d")
+	(paper "A4")
+	(title_block
+		(title "TIGSICH - finger remote for IPOTools SuperTIG 200Di")
+		(date "2026-09-23")
+		(rev "1")
+		(comment 1 "Passive: 50k slide pot (current demand) + microswitch (trigger)")
+		(comment 2 "Replaces FT-47K-CL8 foot pedal; GX20-7 plug, pins 6-7 bridged in plug")
+	)
+	(lib_symbols
+	(symbol "Device:R_Potentiometer_US"
+		(pin_names
+			(offset 1.016)
+			(hide yes)
+		)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(duplicate_pin_numbers_are_jumpers no)
+		(property "Reference" "RV"
+			(at -4.445 0 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "R_Potentiometer_US"
+			(at -2.54 0 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Potentiometer, US symbol"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Sim.Device" "R"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Sim.Type" "POT"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Sim.Pins" "1=r0 2=wiper 3=r1"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_keywords" "resistor variable"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_fp_filters" "Potentiometer*"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(symbol "R_Potentiometer_US_0_1"
+			(polyline
+				(pts
+					(xy 0 2.54) (xy 0 2.286)
+				)
+				(stroke
+					(width 0)
+					(type default)
+				)
+				(fill
+					(type none)
+				)
+			)
+			(polyline
+				(pts
+					(xy 0 2.286) (xy 1.016 1.905) (xy 0 1.524) (xy -1.016 1.143) (xy 0 0.762)
+				)
+				(stroke
+					(width 0)
+					(type default)
+				)
+				(fill
+					(type none)
+				)
+			)
+			(polyline
+				(pts
+					(xy 0 0.762) (xy 1.016 0.381) (xy 0 0) (xy -1.016 -0.381) (xy 0 -0.762)
+				)
+				(stroke
+					(width 0)
+					(type default)
+				)
+				(fill
+					(type none)
+				)
+			)
+			(polyline
+				(pts
+					(xy 0 -0.762) (xy 1.016 -1.143) (xy 0 -1.524) (xy -1.016 -1.905) (xy 0 -2.286)
+				)
+				(stroke
+					(width 0)
+					(type default)
+				)
+				(fill
+					(type none)
+				)
+			)
+			(polyline
+				(pts
+					(xy 0 -2.286) (xy 0 -2.54)
+				)
+				(stroke
+					(width 0)
+					(type default)
+				)
+				(fill
+					(type none)
+				)
+			)
+			(polyline
+				(pts
+					(xy 1.143 0) (xy 2.286 0.508) (xy 2.286 -0.508) (xy 1.143 0)
+				)
+				(stroke
+					(width 0)
+					(type default)
+				)
+				(fill
+					(type outline)
+				)
+			)
+			(polyline
+				(pts
+					(xy 2.54 0) (xy 1.524 0)
+				)
+				(stroke
+					(width 0)
+					(type default)
+				)
+				(fill
+					(type none)
+				)
+			)
+		)
+		(symbol "R_Potentiometer_US_1_1"
+			(pin passive line
+				(at 0 3.81 270)
+				(length 1.27)
+				(name "1"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "1"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at 3.81 0 180)
+				(length 1.27)
+				(name "2"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "2"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at 0 -3.81 90)
+				(length 1.27)
+				(name "3"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "3"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+		)
+		(embedded_fonts no)
+	)
+	(symbol "Switch:SW_SPDT"
+		(pin_names
+			(offset 0)
+			(hide yes)
+		)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(duplicate_pin_numbers_are_jumpers no)
+		(property "Reference" "SW"
+			(at 0 5.08 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "SW_SPDT"
+			(at 0 -5.08 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 0 -7.62 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Switch, single pole double throw"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_keywords" "switch single-pole double-throw spdt ON-ON"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(symbol "SW_SPDT_0_1"
+			(circle
+				(center -2.032 0)
+				(radius 0.4572)
+				(stroke
+					(width 0)
+					(type default)
+				)
+				(fill
+					(type none)
+				)
+			)
+			(polyline
+				(pts
+					(xy -1.651 0.254) (xy 1.651 2.286)
+				)
+				(stroke
+					(width 0)
+					(type default)
+				)
+				(fill
+					(type none)
+				)
+			)
+			(circle
+				(center 2.032 2.54)
+				(radius 0.4572)
+				(stroke
+					(width 0)
+					(type default)
+				)
+				(fill
+					(type none)
+				)
+			)
+			(circle
+				(center 2.032 -2.54)
+				(radius 0.4572)
+				(stroke
+					(width 0)
+					(type default)
+				)
+				(fill
+					(type none)
+				)
+			)
+		)
+		(symbol "SW_SPDT_1_1"
+			(rectangle
+				(start -3.175 3.81)
+				(end 3.175 -3.81)
+				(stroke
+					(width 0)
+					(type default)
+				)
+				(fill
+					(type background)
+				)
+			)
+			(pin passive line
+				(at 5.08 2.54 180)
+				(length 2.54)
+				(name "A"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "1"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at -5.08 0 0)
+				(length 2.54)
+				(name "B"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "2"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at 5.08 -2.54 180)
+				(length 2.54)
+				(name "C"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "3"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+		)
+		(embedded_fonts no)
+	)
+	(symbol "Connector_Generic:Conn_01x05"
+		(pin_names
+			(offset 1.016)
+			(hide yes)
+		)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(duplicate_pin_numbers_are_jumpers no)
+		(property "Reference" "J"
+			(at 0 7.62 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "Conn_01x05"
+			(at 0 -7.62 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Generic connector, single row, 01x05, script generated (kicad-library-utils/schlib/autogen/connector/)"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_keywords" "connector"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_fp_filters" "Connector*:*_1x??_*"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(symbol "Conn_01x05_1_1"
+			(rectangle
+				(start -1.27 6.35)
+				(end 1.27 -6.35)
+				(stroke
+					(width 0.254)
+					(type default)
+				)
+				(fill
+					(type background)
+				)
+			)
+			(rectangle
+				(start -1.27 5.207)
+				(end 0 4.953)
+				(stroke
+					(width 0.1524)
+					(type default)
+				)
+				(fill
+					(type none)
+				)
+			)
+			(rectangle
+				(start -1.27 2.667)
+				(end 0 2.413)
+				(stroke
+					(width 0.1524)
+					(type default)
+				)
+				(fill
+					(type none)
+				)
+			)
+			(rectangle
+				(start -1.27 0.127)
+				(end 0 -0.127)
+				(stroke
+					(width 0.1524)
+					(type default)
+				)
+				(fill
+					(type none)
+				)
+			)
+			(rectangle
+				(start -1.27 -2.413)
+				(end 0 -2.667)
+				(stroke
+					(width 0.1524)
+					(type default)
+				)
+				(fill
+					(type none)
+				)
+			)
+			(rectangle
+				(start -1.27 -4.953)
+				(end 0 -5.207)
+				(stroke
+					(width 0.1524)
+					(type default)
+				)
+				(fill
+					(type none)
+				)
+			)
+			(pin passive line
+				(at -5.08 5.08 0)
+				(length 3.81)
+				(name "Pin_1"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "1"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at -5.08 2.54 0)
+				(length 3.81)
+				(name "Pin_2"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "2"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at -5.08 0 0)
+				(length 3.81)
+				(name "Pin_3"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "3"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at -5.08 -2.54 0)
+				(length 3.81)
+				(name "Pin_4"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "4"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at -5.08 -5.08 0)
+				(length 3.81)
+				(name "Pin_5"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "5"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+		)
+		(embedded_fonts no)
+	)
+	(symbol "Mechanical:MountingHole"
+		(pin_names
+			(offset 1.016)
+		)
+		(exclude_from_sim no)
+		(in_bom no)
+		(on_board yes)
+		(in_pos_files yes)
+		(duplicate_pin_numbers_are_jumpers no)
+		(property "Reference" "H"
+			(at 0 5.08 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "MountingHole"
+			(at 0 3.175 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Mounting Hole without connection"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_keywords" "mounting hole"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_fp_filters" "MountingHole*"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(symbol "MountingHole_0_1"
+			(circle
+				(center 0 0)
+				(radius 1.27)
+				(stroke
+					(width 1.27)
+					(type default)
+				)
+				(fill
+					(type none)
+				)
+			)
+		)
+		(embedded_fonts no)
+	)
+	)
+	(symbol (lib_id "Device:R_Potentiometer_US") (at 107.95 91.44 0) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced no) (uuid "d51390fb-0e3c-405c-8b57-0cb2ccca7758")
+		(property "Reference" "RV1" (at 104.14 90.17 0) (effects (font (size 1.27 1.27)) (justify right)))
+		(property "Value" "50k" (at 104.14 92.71 0) (effects (font (size 1.27 1.27)) (justify right)))
+		(property "Footprint" "Potentiometer_THT:Potentiometer_Bourns_PTA1543_Single_Slide" (at 107.95 91.44 0) (effects (font (size 1.27 1.27)) (hide yes)))
+		(property "Datasheet" "https://www.bourns.com/docs/product-datasheets/pta.pdf" (at 107.95 91.44 0) (effects (font (size 1.27 1.27)) (hide yes)))
+		(property "Description" "50k linear slide pot, 15 mm travel, no detent" (at 107.95 91.44 0) (effects (font (size 1.27 1.27)) (hide yes)))
+		(property "MPN" "PTA1543-2015CIB503" (at 107.95 91.44 0) (effects (font (size 1.27 1.27)) (hide yes)))
+		(pin "1" (uuid "92b50ae8-c84c-4dea-b9f1-996d149705d8"))
+		(pin "2" (uuid "0a588119-3251-4f68-88f9-3c9289187c34"))
+		(pin "3" (uuid "0320bb21-454a-43e3-b33a-4fd6e92dd6ce"))
+		(instances (project "tigsich" (path "/7b1f3c2a-1d5e-4a8b-9c0d-5f1e2a3b4c5d" (reference "RV1") (unit 1))))
+	)
+	(wire (pts (xy 107.95 87.63) (xy 107.95 83.82)) (stroke (width 0) (type default) (color 0 90 200 1)) (uuid "5aa346f5-11a2-4169-bd3e-525866f7de60"))
+	(wire (pts (xy 107.95 83.82) (xy 123.19 83.82)) (stroke (width 0) (type default) (color 0 90 200 1)) (uuid "57391b68-9e6c-4cf6-973c-d37a50a21f78"))
+	(label "POT_A" (at 123.19 83.82 0) (effects (font (size 1.27 1.27)) (justify left bottom)) (uuid "520ef523-8040-4c6c-80fa-237a45ca9791"))
+	(wire (pts (xy 111.76 91.44) (xy 123.19 91.44)) (stroke (width 0) (type default) (color 0 90 200 1)) (uuid "7c8685f0-6081-4c19-8e79-c27a41388dd6"))
+	(label "WIPER" (at 123.19 91.44 0) (effects (font (size 1.27 1.27)) (justify left bottom)) (uuid "a1157dfa-b03a-4c0c-a6a4-375208fa7291"))
+	(wire (pts (xy 107.95 95.25) (xy 107.95 99.06)) (stroke (width 0) (type default) (color 0 90 200 1)) (uuid "a049d3d6-2bc1-4b59-b785-0a514a4d3eb5"))
+	(wire (pts (xy 107.95 99.06) (xy 123.19 99.06)) (stroke (width 0) (type default) (color 0 90 200 1)) (uuid "6a9aac2e-6d76-4382-bd7c-6d7ee15aef77"))
+	(label "POT_B" (at 123.19 99.06 0) (effects (font (size 1.27 1.27)) (justify left bottom)) (uuid "e3235efd-3beb-4f19-98ef-6f70ef284bd9"))
+	(rectangle (start 93.98 76.2) (end 134.62 104.14) (stroke (width 0.254) (type dash) (color 0 90 200 1)) (fill (type none)) (uuid "b96ee1f4-9933-4544-a5ee-cabced2505fc"))
+	(text "CURRENT DEMAND" (exclude_from_sim no) (at 95.25 78.74 0) (effects (font (size 1.524 1.524) (bold yes)) (justify left)) (uuid "3d569342-e946-417d-9b23-08fb4f0da782"))
+	(symbol (lib_id "Switch:SW_SPDT") (at 116.84 115.57 0) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced no) (uuid "372ddbbd-e3e9-4cab-83a3-5f7fc758c671")
+		(property "Reference" "SW1" (at 116.84 110.49 0) (effects (font (size 1.27 1.27))))
+		(property "Value" "D2F-01L3" (at 116.84 120.65 0) (effects (font (size 1.27 1.27))))
+		(property "Footprint" "tigsich:SW_Omron_D2F-01L3" (at 116.84 115.57 0) (effects (font (size 1.27 1.27)) (hide yes)))
+		(property "Datasheet" "https://omronfs.omron.com/en_US/ecb/products/pdf/en-d2f.pdf" (at 116.84 115.57 0) (effects (font (size 1.27 1.27)) (hide yes)))
+		(property "Description" "Omron microswitch, gold contacts, simulated roller lever" (at 116.84 115.57 0) (effects (font (size 1.27 1.27)) (hide yes)))
+		(property "MPN" "D2F-01L3" (at 116.84 115.57 0) (effects (font (size 1.27 1.27)) (hide yes)))
+		(pin "1" (uuid "58c4afe9-c992-4f3e-9eaf-97d45db3842d"))
+		(pin "2" (uuid "48d3783d-f2c4-47fe-a103-66abdba99a44"))
+		(pin "3" (uuid "3b17a9be-6db8-4675-a332-6b8505d8aa3a"))
+		(instances (project "tigsich" (path "/7b1f3c2a-1d5e-4a8b-9c0d-5f1e2a3b4c5d" (reference "SW1") (unit 1))))
+	)
+	(wire (pts (xy 111.76 115.57) (xy 104.14 115.57)) (stroke (width 0) (type default) (color 210 110 0 1)) (uuid "de98f51f-2f5f-45dc-909b-72dbff8f21fb"))
+	(label "TRIG_COM" (at 104.14 115.57 180) (effects (font (size 1.27 1.27)) (justify right bottom)) (uuid "d0a573bb-3d59-4b7e-b079-132c09f8d13d"))
+	(wire (pts (xy 121.92 113.03) (xy 123.19 113.03)) (stroke (width 0) (type default) (color 210 110 0 1)) (uuid "c0d7883a-047b-404f-8cbb-68f43e8ba3bb"))
+	(label "TRIG_NO" (at 123.19 113.03 0) (effects (font (size 1.27 1.27)) (justify left bottom)) (uuid "e4bebd5c-9c85-470d-a030-a9f30edfcc3c"))
+	(no_connect (at 121.92 118.11) (uuid "c6f4e2d8-6b1a-46ff-9162-a355e0ac51ec"))
+	(rectangle (start 93.98 106.68) (end 134.62 128.27) (stroke (width 0.254) (type dash) (color 210 110 0 1)) (fill (type none)) (uuid "6e4d147c-7107-401d-ae37-9eda22e647d0"))
+	(text "TRIGGER" (exclude_from_sim no) (at 95.25 109.22 0) (effects (font (size 1.524 1.524) (bold yes)) (justify left)) (uuid "e1dadd8f-99c9-4ed6-8b26-0058be3601e6"))
+	(text "Closes in first ~2.5° of lever swing,\nheld by a dwell cam for the rest" (exclude_from_sim no) (at 95.25 124.46 0) (effects (font (size 1 1)) (justify left)) (uuid "4105002b-def6-4343-a4b0-fca52c164519"))
+	(symbol (lib_id "Connector_Generic:Conn_01x05") (at 152.4 99.06 0) (unit 1) (exclude_from_sim no) (in_bom no) (on_board yes) (dnp no) (fields_autoplaced no) (uuid "5624bd07-1603-4dfa-a522-ac7397775f69")
+		(property "Reference" "J1" (at 152.4 91.44 0) (effects (font (size 1.27 1.27))))
+		(property "Value" "Cable" (at 152.4 107.95 0) (effects (font (size 1.27 1.27))))
+		(property "Footprint" "Connector_Wire:SolderWire-0.15sqmm_1x05_P4mm_D0.5mm_OD1.5mm_Relief" (at 152.4 99.06 0) (effects (font (size 1.27 1.27)) (hide yes)))
+		(property "Datasheet" "" (at 152.4 99.06 0) (effects (font (size 1.27 1.27)) (hide yes)))
+		(property "Description" "5-core cable solder pads with strain-relief holes" (at 152.4 99.06 0) (effects (font (size 1.27 1.27)) (hide yes)))
+		(pin "1" (uuid "a52f74f7-15f9-4f65-ae0a-e1be0786346b"))
+		(pin "2" (uuid "b6834452-a8ba-4661-92c1-ff5578399dad"))
+		(pin "3" (uuid "4770156e-90a7-42a7-92b2-aadd5ef69882"))
+		(pin "4" (uuid "78d6e8af-ad01-4231-aa55-3b57ecbc52df"))
+		(pin "5" (uuid "53b29ced-b195-4aa7-a7be-a32e25e7dcbe"))
+		(instances (project "tigsich" (path "/7b1f3c2a-1d5e-4a8b-9c0d-5f1e2a3b4c5d" (reference "J1") (unit 1))))
+	)
+	(wire (pts (xy 147.32 93.98) (xy 139.7 93.98)) (stroke (width 0) (type default) (color 0 90 200 1)) (uuid "463bdb88-1de5-4e81-9856-c6ba3de95c4a"))
+	(label "POT_A" (at 139.7 93.98 180) (effects (font (size 1.27 1.27)) (justify right bottom)) (uuid "63038f8b-1405-41e3-9d2d-241185fe84fc"))
+	(text "→ plug pin 3 (blue)" (exclude_from_sim no) (at 156.21 93.98 0) (effects (font (size 1.27 1.27)) (justify left)) (uuid "c8fd80a6-88f3-44bc-9cab-e8dc4cf4447f"))
+	(wire (pts (xy 147.32 96.52) (xy 139.7 96.52)) (stroke (width 0) (type default) (color 0 90 200 1)) (uuid "590f0baf-4adb-4e42-b28d-8cd3c94d2fce"))
+	(label "WIPER" (at 139.7 96.52 180) (effects (font (size 1.27 1.27)) (justify right bottom)) (uuid "5a0fdfea-4919-4307-ab4c-0e9aefa52f50"))
+	(text "→ plug pin 4 (brown)" (exclude_from_sim no) (at 156.21 96.52 0) (effects (font (size 1.27 1.27)) (justify left)) (uuid "353d3bfb-4c56-419a-8044-4a699befff55"))
+	(wire (pts (xy 147.32 99.06) (xy 139.7 99.06)) (stroke (width 0) (type default) (color 0 90 200 1)) (uuid "7009ae2d-0de7-49f3-82c4-3e5a7825850c"))
+	(label "POT_B" (at 139.7 99.06 180) (effects (font (size 1.27 1.27)) (justify right bottom)) (uuid "7ba58e49-0cab-4814-8523-749475f14b4c"))
+	(text "→ plug pin 5 (red)" (exclude_from_sim no) (at 156.21 99.06 0) (effects (font (size 1.27 1.27)) (justify left)) (uuid "8a32daf3-caa2-4a23-b6de-3b4427fe0e4c"))
+	(wire (pts (xy 147.32 101.6) (xy 139.7 101.6)) (stroke (width 0) (type default) (color 210 110 0 1)) (uuid "84f3ddc4-d2ed-46b2-8330-15372faa4968"))
+	(label "TRIG_COM" (at 139.7 101.6 180) (effects (font (size 1.27 1.27)) (justify right bottom)) (uuid "93b0b9e9-5c6b-4f14-a0e1-12093f156ac8"))
+	(text "→ plug pin 1 (black)" (exclude_from_sim no) (at 156.21 101.6 0) (effects (font (size 1.27 1.27)) (justify left)) (uuid "f3569181-8957-4dc0-890f-3e30932bbab3"))
+	(wire (pts (xy 147.32 104.14) (xy 139.7 104.14)) (stroke (width 0) (type default) (color 210 110 0 1)) (uuid "5ac75a04-4704-4e2b-a201-123410857acc"))
+	(label "TRIG_NO" (at 139.7 104.14 180) (effects (font (size 1.27 1.27)) (justify right bottom)) (uuid "087dba2a-9997-4014-bf76-a2556a883cee"))
+	(text "→ plug pin 2 (white)" (exclude_from_sim no) (at 156.21 104.14 0) (effects (font (size 1.27 1.27)) (justify left)) (uuid "e28c5453-4ed0-41bc-b521-5efd00ca57d9"))
+	(rectangle (start 137.16 82.55) (end 187.96 128.27) (stroke (width 0.254) (type dash) (color 80 80 80 1)) (fill (type none)) (uuid "af543036-4709-4870-8f4a-2ea39d054a2f"))
+	(text "CABLE → GX20-7 PLUG" (exclude_from_sim no) (at 138.43 85.09 0) (effects (font (size 1.524 1.524) (bold yes)) (justify left)) (uuid "9f5e6669-5726-4241-b394-c32d7fb65a7c"))
+	(text "Plug pins 6-7: bridged inside the plug\n(remote-detect link, not on this board)" (exclude_from_sim no) (at 138.43 115.57 0) (effects (font (size 1 1)) (justify left)) (uuid "f34e7db0-421d-4c19-a6fc-547d889162f9"))
+	(text "Swap pins 3 and 5 in the plug if current\nis maximum with the lever released" (exclude_from_sim no) (at 138.43 120.65 0) (effects (font (size 1 1)) (justify left)) (uuid "6385ddaa-7314-424c-86d3-92cac27bbdb9"))
+	(symbol (lib_id "Mechanical:MountingHole") (at 104.14 136.53 0) (unit 1) (exclude_from_sim no) (in_bom no) (on_board yes) (dnp no) (fields_autoplaced no) (uuid "855dbf78-8f9f-4457-b716-fce57b9d04f8")
+		(property "Reference" "H1" (at 106.68 135.89 0) (effects (font (size 1.27 1.27)) (justify left)))
+		(property "Value" "M2" (at 106.68 138.43 0) (effects (font (size 1.27 1.27)) (justify left)))
+		(property "Footprint" "MountingHole:MountingHole_2.2mm_M2" (at 104.14 136.53 0) (effects (font (size 1.27 1.27)) (hide yes)))
+		(property "Datasheet" "" (at 104.14 136.53 0) (effects (font (size 1.27 1.27)) (hide yes)))
+		(property "Description" "M2 mounting hole to housing" (at 104.14 136.53 0) (effects (font (size 1.27 1.27)) (hide yes)))
+		(instances (project "tigsich" (path "/7b1f3c2a-1d5e-4a8b-9c0d-5f1e2a3b4c5d" (reference "H1") (unit 1))))
+	)
+	(symbol (lib_id "Mechanical:MountingHole") (at 119.38 136.53 0) (unit 1) (exclude_from_sim no) (in_bom no) (on_board yes) (dnp no) (fields_autoplaced no) (uuid "51c175ec-85fc-470c-a4d7-c611cd2d45ad")
+		(property "Reference" "H2" (at 121.92 135.89 0) (effects (font (size 1.27 1.27)) (justify left)))
+		(property "Value" "M2" (at 121.92 138.43 0) (effects (font (size 1.27 1.27)) (justify left)))
+		(property "Footprint" "MountingHole:MountingHole_2.2mm_M2" (at 119.38 136.53 0) (effects (font (size 1.27 1.27)) (hide yes)))
+		(property "Datasheet" "" (at 119.38 136.53 0) (effects (font (size 1.27 1.27)) (hide yes)))
+		(property "Description" "M2 mounting hole to housing" (at 119.38 136.53 0) (effects (font (size 1.27 1.27)) (hide yes)))
+		(instances (project "tigsich" (path "/7b1f3c2a-1d5e-4a8b-9c0d-5f1e2a3b4c5d" (reference "H2") (unit 1))))
+	)
+	(rectangle (start 93.98 130.81) (end 134.62 142.24) (stroke (width 0.254) (type dash) (color 80 80 80 1)) (fill (type none)) (uuid "c214301f-00f4-48a2-81e3-65d627e30e5e"))
+	(text "MECHANICAL" (exclude_from_sim no) (at 95.25 133.35 0) (effects (font (size 1.524 1.524) (bold yes)) (justify left)) (uuid "831a31be-6b66-4bf8-a649-616f6156f46a"))
+	(sheet_instances (path "/" (page "1")))
+	(embedded_fonts no)
+)
