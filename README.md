@@ -184,6 +184,11 @@ All heights are measured from the PCB bottom, using nominal datasheet values, wi
 | 4 | P5 | POT_B | 5 | red |
 | 5 | P2 | TRIG_NO | 2 | white |
 
+- **PTA2043 footprint: corrected copy of KiCad's.** KiCad's `Potentiometer_Bourns_PTA2043_Single_Slide` puts pin 3 at
+  **33.0 mm** from pin 1, but the datasheet (dimension E) and Bourns' STEP model both give **33.5 mm**. With Ø1.2 mm holes
+  and 0.8 mm pins, the library version would not let the pot seat. The project copy
+  (`tigsich.pretty/Potentiometer_Bourns_PTA2043_Single_Slide_E33.5`) keeps pins 1/2 where they were, moves pin 3 to
+  33.5 mm, and shifts the four mounting tabs and body outline by +0.25 mm, so everything is centred at 16.75 mm as on the part.
 - **TL2230 footprint:** it's custom (`tigsich.pretty/SW_E-Switch_TL2230`), because KiCad's library doesn't have one.
   It was made from the datasheet PCB layout (component side): 2 rows of 3 × Ø0.8 mm holes, 2 mm pitch, rows 5 mm apart,
   pin 1 square. The pad numbers match the `Switch:SW_Push_DPDT` symbol: B = common 2/5, A = rest 1/4, C = pushed 3/6.
@@ -192,8 +197,13 @@ All heights are measured from the PCB bottom, using nominal datasheet values, wi
     with a 90° rotation (the vendor model has its pin rows along Y) and a +0.75 mm Z offset (model origin is 0.75 mm above
     the seating plane). With these, the pins sit centred in the pads and the plunger top is 12.5 mm above the PCB, as in
     the datasheet.
-  - **RV1** is still a rough block model (`PTA2043_approx.wrl`), shown with the lever at full length (not cut). Download
-    Bourns' STEP before designing the housing.
+  - **RV1** uses Bourns' STEP model (`tigsich.3dshapes/PTA2043-2015DPB103.stp`, mm). Its "up" is −Z and pin 2 is at +Y,
+    so the footprint flips it 180° about X and offsets it by (−0.85, +2.9, 0) mm. That centres the body on the tabs and puts
+    all pins and tabs in their holes, with the body seated on the board.
+  - **Caution for the housing:** Bourns only offered the model for the **DP** lever variant (`…DPB103`). We order
+    **CP** (`PTA2043-2015CPB503`). The body, pins and slot are identical, but **the lever shape differs** (the DP lever in
+    the model reaches ≈ 20.7 mm above the PCB top). Take the lever dimensions for the case from the datasheet's CP lever drawing,
+    or measure the real part. The lever is cut down anyway.
 
 **Verification:**
 
@@ -208,8 +218,8 @@ All heights are measured from the PCB bottom, using nominal datasheet values, wi
 | Path | Content |
 |---|---|
 | `tigsich.kicad_pro/.kicad_sch/.kicad_pcb` | KiCad project |
-| `tigsich.pretty/` | Project footprint library (TL2230) |
-| `tigsich.3dshapes/` | 3D models: TL2230 vendor STEP, approximate PTA2043 block |
+| `tigsich.pretty/` | Project footprints: TL2230, corrected PTA2043 (E = 33.5 mm) |
+| `tigsich.3dshapes/` | Vendor STEP models: TL2230 (E-Switch), PTA2043 DP-lever variant (Bourns) |
 | `docs/mechanism.svg` | Scaled side view: finger bar, hinge, switch, heights |
 | `docs/schematic.pdf` / `.png` | Schematic exports |
 | `docs/pcb_layout.png`, `docs/pcb_3d.png` | Board renders |
