@@ -240,7 +240,7 @@
       "internal_id": "",
       "mfg": "",
       "mpn": "",
-      "sch_revision": ""
+      "sch_revision": "4"
     },
     "layer_pairs": [],
     "layer_presets": [],
@@ -658,13 +658,18 @@
       {
         "filename": "tigsich.kicad_sch",
         "name": "tigsich",
-        "uuid": "00000000-0000-0000-0000-000000000000"
+        "uuid": "7b1f3c2a-1d5e-4a8b-9c0d-5f1e2a3b4c5d"
       }
     ],
     "used_designators": "",
     "variants": []
   },
-  "sheets": [],
+  "sheets": [
+    [
+      "7b1f3c2a-1d5e-4a8b-9c0d-5f1e2a3b4c5d",
+      "tigsich"
+    ]
+  ],
   "text_variables": {},
   "tuning_profiles": {
     "meta": {
